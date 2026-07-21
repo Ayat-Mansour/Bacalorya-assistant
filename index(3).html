@@ -1,0 +1,4007 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_top">
+  <meta name="theme-color" content="#06162a">
+  <title>ATC Academy | المساعد الذكي</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy:#06162a;
+      --navy-2:#0b2b4c;
+      --navy-3:#0e3965;
+      --cyan:#22d3de;
+      --cyan-2:#78f0f4;
+      --blue:#1e77f0;
+      --gold:#e6bd63;
+      --gold-2:#f6dda1;
+      --white:#ffffff;
+      --text:#edf6ff;
+      --muted:#a8bdd2;
+      --line:rgba(255,255,255,.12);
+      --success:#34c58b;
+      --shadow:0 24px 70px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      min-height:100vh;
+      font-family:"Cairo", Tahoma, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 14% 12%, rgba(34,211,222,.14), transparent 27%),
+        radial-gradient(circle at 86% 82%, rgba(230,189,99,.12), transparent 25%),
+        linear-gradient(145deg,#03101e 0%,var(--navy) 48%,#071c34 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.17;
+      background-image:
+        linear-gradient(90deg,transparent 49%,rgba(34,211,222,.13) 50%,transparent 51%),
+        linear-gradient(0deg,transparent 49%,rgba(34,211,222,.09) 50%,transparent 51%);
+      background-size:110px 110px;
+      mask-image:linear-gradient(to bottom,#000,transparent 90%);
+    }
+
+    button,input,select,textarea { font-family:inherit; }
+
+    .shell {
+      position:relative;
+      z-index:1;
+      min-height:100vh;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+    }
+
+    .topbar {
+      width:min(1180px,calc(100% - 28px));
+      margin:16px auto 0;
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(5,20,38,.76);
+      backdrop-filter:blur(14px);
+      box-shadow:0 10px 30px rgba(0,0,0,.18);
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:13px;
+      min-width:0;
+    }
+
+    .logo {
+      width:58px;
+      height:58px;
+      object-fit:contain;
+      border-radius:50%;
+      background:#fff;
+      padding:3px;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 6px 18px rgba(0,0,0,.25);
+      flex:0 0 auto;
+    }
+
+    .brand-copy strong {
+      display:block;
+      direction:ltr;
+      font-size:20px;
+      line-height:1.2;
+      white-space:nowrap;
+    }
+
+    .brand-copy span {
+      display:block;
+      margin-top:4px;
+      color:var(--cyan-2);
+      font-size:12px;
+    }
+
+    .badge {
+      color:var(--gold-2);
+      border:1px solid rgba(230,189,99,.32);
+      background:rgba(230,189,99,.08);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      white-space:nowrap;
+    }
+
+    .main {
+      width:min(1080px,calc(100% - 28px));
+      margin:26px auto 34px;
+      display:grid;
+      align-items:center;
+    }
+
+    .card {
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:linear-gradient(160deg,rgba(13,51,90,.94),rgba(5,24,44,.98));
+      box-shadow:var(--shadow);
+    }
+
+    .card::before,
+    .card::after {
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    .card::before {
+      width:340px;
+      height:340px;
+      top:-225px;
+      right:-120px;
+      background:radial-gradient(circle,rgba(34,211,222,.22),transparent 68%);
+    }
+
+    .card::after {
+      width:270px;
+      height:270px;
+      bottom:-185px;
+      left:-100px;
+      background:radial-gradient(circle,rgba(230,189,99,.15),transparent 68%);
+    }
+
+    .head {
+      position:relative;
+      z-index:1;
+      padding:28px 30px 10px;
+      text-align:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 11px;
+      border-radius:999px;
+      font-size:12px;
+      color:var(--cyan-2);
+      background:rgba(34,211,222,.08);
+      border:1px solid rgba(34,211,222,.24);
+      margin-bottom:14px;
+    }
+
+    .title {
+      margin:0;
+      font-size:clamp(25px,4vw,38px);
+      line-height:1.45;
+      font-weight:800;
+    }
+
+    .academy {
+      display:inline-block;
+      direction:ltr;
+      color:var(--cyan);
+      white-space:nowrap;
+      text-shadow:0 0 18px rgba(34,211,222,.22);
+    }
+
+    .subtitle {
+      max-width:700px;
+      margin:14px auto 0;
+      color:var(--muted);
+      line-height:1.95;
+      font-size:15px;
+    }
+
+    .stepper {
+      position:relative;
+      z-index:1;
+      display:flex;
+      justify-content:center;
+      gap:9px;
+      padding:18px 30px 4px;
+    }
+
+    .dot {
+      width:34px;
+      height:7px;
+      border-radius:99px;
+      background:rgba(255,255,255,.1);
+      transition:.25s;
+    }
+
+    .dot.active {
+      width:58px;
+      background:linear-gradient(90deg,var(--cyan),var(--gold));
+      box-shadow:0 0 18px rgba(34,211,222,.28);
+    }
+
+    .content {
+      position:relative;
+      z-index:1;
+      padding:24px 30px 32px;
+    }
+
+    .panel,.route {
+      display:none;
+      animation:fade .35s ease both;
+    }
+
+    .panel.active,.route.active { display:block; }
+
+    @keyframes fade {
+      from { opacity:0; transform:translateY(12px); }
+      to { opacity:1; transform:none; }
+    }
+
+    .q {
+      text-align:center;
+      margin-bottom:22px;
+    }
+
+    .q h2 {
+      margin:0;
+      font-size:clamp(20px,2.8vw,28px);
+      line-height:1.65;
+      font-weight:800;
+    }
+
+    .hint {
+      margin-top:8px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.8;
+    }
+
+    .grid2 {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .choice,.menu,.program-item {
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+      color:var(--text);
+      border-radius:20px;
+      cursor:pointer;
+      transition:.22s;
+      text-align:start;
+    }
+
+    .choice {
+      min-height:150px;
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .choice:hover,.menu:hover,.program-item:hover {
+      transform:translateY(-4px);
+      border-color:rgba(34,211,222,.55);
+      background:linear-gradient(145deg,rgba(34,211,222,.12),rgba(255,255,255,.035));
+      box-shadow:0 18px 35px rgba(0,0,0,.2);
+    }
+
+    .icon {
+      width:54px;
+      height:54px;
+      border-radius:17px;
+      display:grid;
+      place-items:center;
+      background:rgba(34,211,222,.09);
+      border:1px solid rgba(34,211,222,.2);
+      color:var(--cyan);
+    }
+
+    .icon.gold {
+      background:rgba(230,189,99,.09);
+      border-color:rgba(230,189,99,.22);
+      color:var(--gold);
+    }
+
+    .icon.green {
+      background:rgba(52,197,139,.08);
+      border-color:rgba(52,197,139,.22);
+      color:var(--success);
+    }
+
+    .icon svg { width:29px; height:29px; }
+
+    .choice h3,.menu h3,.program-item h3 {
+      margin:0;
+      font-size:20px;
+      line-height:1.5;
+    }
+
+    .choice p,.menu p,.program-item p {
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.8;
+    }
+
+    .menu-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .menu {
+      min-height:220px;
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .num {
+      position:absolute;
+      top:14px;
+      inset-inline-end:16px;
+      font-size:11px;
+      color:rgba(255,255,255,.42);
+      letter-spacing:1px;
+    }
+
+    .menu .icon { margin-bottom:20px; }
+
+    .action {
+      margin-top:20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .action .arrow {
+      color:var(--cyan);
+      font-size:18px;
+      transition:.2s;
+    }
+
+    .menu:hover .action .arrow {
+      transform:translateX(-4px);
+    }
+
+    html[dir="ltr"] .menu:hover .action .arrow {
+      transform:translateX(4px);
+    }
+
+    .note {
+      margin-top:18px;
+      padding:13px 15px;
+      border-radius:14px;
+      background:rgba(255,255,255,.045);
+      border-inline-start:3px solid var(--gold);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.85;
+    }
+
+    .nav {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-top:22px;
+    }
+
+    .back {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 11px;
+      border-radius:999px;
+      font-size:12px;
+      color:var(--cyan-2);
+      background:rgba(34,211,222,.08);
+      border:1px solid rgba(34,211,222,.22);
+    }
+
+    .routebox {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:22px;
+      padding:26px;
+    }
+
+    .program-home {
+      display:grid;
+      gap:16px;
+    }
+
+    .program-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .program-item {
+      min-height:160px;
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .program-detail {
+      display:none;
+      animation:fade .3s ease both;
+    }
+
+    .program-detail.active { display:block; }
+
+    .detail-head {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:18px;
+      padding-bottom:16px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .detail-head h2 {
+      margin:0;
+      font-size:25px;
+      line-height:1.45;
+    }
+
+    .detail-head p {
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .detail-copy {
+      background:rgba(255,255,255,.035);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+      text-align:start;
+    }
+
+    .detail-copy p {
+      margin:0;
+      color:var(--text);
+      line-height:2;
+    }
+
+    .detail-list {
+      margin:0;
+      padding-inline-start:22px;
+      display:grid;
+      gap:10px;
+      color:var(--text);
+      line-height:1.85;
+    }
+
+    .detail-list li::marker { color:var(--cyan); }
+
+    .info-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .info-box {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:16px;
+      padding:16px;
+      text-align:start;
+    }
+
+    .info-box strong {
+      display:block;
+      color:var(--gold);
+      font-size:13px;
+      margin-bottom:6px;
+    }
+
+    .info-box span {
+      font-size:16px;
+      font-weight:700;
+      line-height:1.6;
+    }
+
+    .about-box {
+      display:grid;
+      grid-template-columns:180px 1fr;
+      gap:22px;
+      align-items:center;
+    }
+
+     .about-logo {
+      width:170px;
+      height:170px;
+      object-fit:contain;
+      border-radius:50%;
+      background:#fff;
+      padding:8px;
+      box-shadow:0 16px 35px rgba(0,0,0,.23);
+      justify-self:center;
+    }
+
+    .showcase-block {
+      margin-top:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.035);
+      border-radius:18px;
+      padding:18px;
+    }
+
+    .showcase-title {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:0 0 8px;
+      font-size:18px;
+      font-weight:800;
+      line-height:1.6;
+    }
+
+    .showcase-title .tiny-dot {
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--cyan),var(--gold));
+      flex:0 0 auto;
+      box-shadow:0 0 12px rgba(34,211,222,.35);
+    }
+
+    .showcase-note {
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.85;
+    }
+
+    .brand-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .brand-card {
+      border:1px solid var(--line);
+      background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+      border-radius:18px;
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height:120px;
+      text-align:center;
+    }
+
+    .brand-logo {
+      width:100%;
+      height:42px;
+      display:grid;
+      place-items:center;
+      margin-bottom:10px;
+    }
+
+    .brand-logo svg {
+      max-width:100%;
+      max-height:100%;
+      display:block;
+    }
+
+    .brand-name {
+      font-size:15px;
+      font-weight:800;
+      line-height:1.4;
+      direction:ltr;
+    }
+
+    .brand-caption {
+      margin-top:6px;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.6;
+    }
+
+    .track-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .track-card {
+      border:1px solid var(--line);
+      background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.03));
+      border-radius:18px;
+      padding:15px;
+      text-align:start;
+      min-height:120px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      justify-content:space-between;
+    }
+
+    .track-card.compact {
+      min-height:106px;
+      padding:14px;
+    }
+
+    .track-figure {
+      width:48px;
+      height:48px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:rgba(34,211,222,.09);
+      border:1px solid rgba(34,211,222,.22);
+      color:var(--cyan);
+    }
+
+    .track-card:nth-child(2) .track-figure,
+    .track-card:nth-child(5) .track-figure {
+      background:rgba(230,189,99,.09);
+      border-color:rgba(230,189,99,.22);
+      color:var(--gold);
+    }
+
+    .track-card:nth-child(3) .track-figure,
+    .track-card:nth-child(6) .track-figure {
+      background:rgba(52,197,139,.08);
+      border-color:rgba(52,197,139,.22);
+      color:var(--success);
+    }
+
+    .track-figure svg {
+      width:25px;
+      height:25px;
+    }
+
+    .track-title {
+      margin:0;
+      font-size:15px;
+      font-weight:800;
+      line-height:1.6;
+    }
+
+    .track-sub {
+      margin:0;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.75;
+    }
+
+    .about-lead {
+      margin:0 0 14px;
+      color:var(--text);
+      line-height:2;
+    }
+
+    .program-actions,.ctas {
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:20px;
+    }
+
+    .btn {
+      border:0;
+      border-radius:14px;
+      padding:12px 18px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .btn:hover { transform:translateY(-2px); }
+
+    .primary {
+      background:linear-gradient(90deg,var(--cyan),var(--cyan-2));
+      color:#03243a;
+    }
+
+    .secondary {
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      border:1px solid var(--line);
+    }
+
+    .goldbtn {
+      background:linear-gradient(90deg,var(--gold),var(--gold-2));
+      color:#352609;
+    }
+
+    .route-placeholder {
+      text-align:center;
+      padding:12px 6px;
+    }
+
+    .route-placeholder .icon {
+      margin:0 auto 16px;
+    }
+
+    .route-placeholder h2 {
+      margin:0 0 10px;
+      font-size:26px;
+    }
+
+    .route-placeholder p {
+      margin:0 auto;
+      max-width:640px;
+      color:var(--muted);
+      line-height:1.9;
+    }
+
+    .test-shell {
+      text-align:start;
+      padding:4px 0;
+    }
+
+    .test-intro {
+      text-align:center;
+      max-width:760px;
+      margin:0 auto;
+      padding:8px 4px;
+    }
+
+    .test-intro .icon {
+      margin:0 auto 16px;
+    }
+
+    .test-intro h2,
+    .test-result h2 {
+      margin:0 0 10px;
+      font-size:28px;
+      line-height:1.55;
+    }
+
+    .test-intro p {
+      margin:0 auto;
+      color:var(--muted);
+      line-height:1.95;
+      max-width:680px;
+    }
+
+    .test-facts {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      margin:20px 0;
+    }
+
+    .test-fact {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.045);
+      border-radius:16px;
+      padding:13px 10px;
+      text-align:center;
+    }
+
+    .test-fact strong {
+      display:block;
+      color:var(--gold);
+      font-size:18px;
+      margin-bottom:4px;
+    }
+
+    .test-fact span {
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    .test-progress-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:8px;
+    }
+
+    .test-progress-track {
+      width:100%;
+      height:9px;
+      border-radius:999px;
+      overflow:hidden;
+      background:rgba(255,255,255,.075);
+      border:1px solid rgba(255,255,255,.08);
+      margin-bottom:22px;
+    }
+
+    .test-progress-bar {
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--cyan),var(--gold));
+      transition:width .25s ease;
+    }
+
+    .test-question-card {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:22px;
+      padding:22px;
+    }
+
+    .test-question-number {
+      color:var(--cyan);
+      font-size:13px;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .test-question-text {
+      margin:0 0 18px;
+      font-size:21px;
+      line-height:1.9;
+      font-weight:800;
+    }
+
+    .test-options {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:11px;
+    }
+
+    .test-option {
+      width:100%;
+      min-height:64px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.045);
+      color:var(--text);
+      border-radius:16px;
+      padding:13px 14px;
+      display:flex;
+      align-items:center;
+      gap:11px;
+      text-align:start;
+      cursor:pointer;
+      font:inherit;
+      font-weight:700;
+      line-height:1.65;
+      transition:.18s ease;
+    }
+
+    .test-option:hover {
+      transform:translateY(-1px);
+      border-color:rgba(34,211,222,.5);
+      background:rgba(34,211,222,.07);
+    }
+
+    .test-option.selected {
+      border-color:var(--cyan);
+      background:rgba(34,211,222,.12);
+      box-shadow:0 0 0 2px rgba(34,211,222,.08);
+    }
+
+    .test-option-letter {
+      width:32px;
+      height:32px;
+      border-radius:10px;
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      color:var(--cyan);
+      background:rgba(34,211,222,.09);
+      border:1px solid rgba(34,211,222,.2);
+      font-weight:800;
+    }
+
+    .test-option.selected .test-option-letter {
+      color:#03243a;
+      background:var(--cyan);
+    }
+
+    .test-nav {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
+
+    .test-nav-group {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn[disabled] {
+      opacity:.42;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .test-result {
+      text-align:center;
+      max-width:780px;
+      margin:0 auto;
+    }
+
+    .score-orb {
+      width:154px;
+      height:154px;
+      margin:0 auto 18px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at center,rgba(7,25,43,.98) 58%,transparent 59%),
+        conic-gradient(var(--cyan) 0 var(--score-angle),rgba(255,255,255,.08) var(--score-angle) 360deg);
+      border:1px solid rgba(34,211,222,.28);
+      box-shadow:0 16px 45px rgba(0,0,0,.24);
+    }
+
+    .score-orb strong {
+      display:block;
+      font-size:38px;
+      line-height:1;
+      color:var(--gold);
+    }
+
+    .score-orb span {
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:5px;
+    }
+
+    .result-level {
+      display:inline-block;
+      margin:0 0 12px;
+      padding:8px 14px;
+      border-radius:999px;
+      color:var(--cyan);
+      background:rgba(34,211,222,.09);
+      border:1px solid rgba(34,211,222,.22);
+      font-weight:800;
+    }
+
+    .result-copy {
+      color:var(--muted);
+      line-height:1.95;
+      max-width:680px;
+      margin:0 auto;
+    }
+
+    .result-note {
+      margin:18px auto 0;
+      max-width:680px;
+      border:1px solid rgba(230,189,99,.22);
+      background:rgba(230,189,99,.07);
+      color:var(--text);
+      border-radius:16px;
+      padding:13px 15px;
+      line-height:1.85;
+      font-size:13px;
+    }
+
+    @media(max-width:700px) {
+      .test-facts,
+      .test-options {
+        grid-template-columns:1fr;
+      }
+
+      .test-question-card {
+        padding:17px;
+      }
+
+      .test-question-text {
+        font-size:18px;
+      }
+
+      .test-nav,
+      .test-nav-group {
+        width:100%;
+      }
+
+      .test-nav .btn,
+      .test-nav-group .btn {
+        flex:1;
+      }
+    }
+
+
+
+    /* Booking and payment flow */
+    .booking-shell { text-align:start; }
+
+    .booking-head {
+      text-align:center;
+      max-width:760px;
+      margin:0 auto 22px;
+    }
+
+    .booking-head .icon { margin:0 auto 14px; }
+
+    .booking-head h2 {
+      margin:0 0 8px;
+      font-size:clamp(23px,3vw,30px);
+      line-height:1.55;
+    }
+
+    .booking-head p {
+      margin:0;
+      color:var(--muted);
+      line-height:1.9;
+      font-size:14px;
+    }
+
+    .booking-progress {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:8px;
+      margin:0 0 22px;
+    }
+
+    .booking-progress-item {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.035);
+      border-radius:14px;
+      padding:10px 11px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      text-align:center;
+      transition:.2s;
+    }
+
+    .booking-progress-item.active {
+      color:#03243a;
+      border-color:transparent;
+      background:linear-gradient(90deg,var(--cyan),var(--cyan-2));
+      box-shadow:0 8px 22px rgba(34,211,222,.16);
+    }
+
+    .booking-progress-item.done {
+      color:var(--success);
+      border-color:rgba(52,197,139,.28);
+      background:rgba(52,197,139,.07);
+    }
+
+    .booking-stage { display:none; animation:fade .3s ease both; }
+    .booking-stage.active { display:block; }
+
+    .booking-section {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.035);
+      border-radius:20px;
+      padding:20px;
+      margin-bottom:14px;
+    }
+
+    .booking-section-title {
+      margin:0 0 4px;
+      font-size:18px;
+      line-height:1.6;
+    }
+
+    .booking-section-subtitle {
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.8;
+    }
+
+    .booking-form-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .booking-field { min-width:0; }
+    .booking-field.full { grid-column:1 / -1; }
+
+    .booking-field label {
+      display:block;
+      margin-bottom:7px;
+      color:var(--text);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .booking-required { color:var(--gold); }
+
+    .booking-field input,
+    .booking-field select,
+    .booking-field textarea {
+      width:100%;
+      border:1px solid var(--line);
+      background:rgba(3,16,30,.55);
+      color:var(--text);
+      border-radius:13px;
+      padding:12px 13px;
+      outline:none;
+      font:inherit;
+      font-size:14px;
+      transition:.18s;
+    }
+
+    .booking-field textarea { min-height:92px; resize:vertical; }
+
+    .booking-field input:focus,
+    .booking-field select:focus,
+    .booking-field textarea:focus {
+      border-color:rgba(34,211,222,.72);
+      box-shadow:0 0 0 3px rgba(34,211,222,.09);
+    }
+
+    .booking-field input[readonly] {
+      color:var(--cyan-2);
+      background:rgba(34,211,222,.045);
+    }
+
+    .booking-field select option { color:#06162a; }
+
+    .booking-help {
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.65;
+    }
+
+    .booking-error {
+      margin:0 0 14px;
+      padding:11px 13px;
+      border-radius:13px;
+      border:1px solid rgba(255,110,110,.35);
+      background:rgba(255,80,80,.08);
+      color:#ffd2d2;
+      font-size:12px;
+      line-height:1.75;
+    }
+
+    .booking-field input.field-invalid,
+    .booking-field select.field-invalid,
+    .booking-field textarea.field-invalid {
+      border-color:#ff8f8f;
+      box-shadow:0 0 0 3px rgba(255,100,100,.12);
+    }
+
+    .booking-inline-error {
+      width:100%;
+      margin:0 0 12px;
+      padding:11px 13px;
+      border-radius:12px;
+      color:#ffd7d7;
+      background:rgba(255,80,80,.09);
+      border:1px solid rgba(255,110,110,.25);
+      font-size:13px;
+      line-height:1.75;
+      text-align:start;
+    }
+
+    .booking-info-strip {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      margin-bottom:14px;
+    }
+
+    .booking-info-box {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.035);
+      border-radius:15px;
+      padding:13px;
+      text-align:center;
+    }
+
+    .booking-info-box strong {
+      display:block;
+      color:var(--gold);
+      font-size:15px;
+      line-height:1.5;
+      margin-bottom:3px;
+    }
+
+    .booking-info-box span {
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.5;
+    }
+
+    .booking-test-card {
+      border:1px solid rgba(34,211,222,.22);
+      background:rgba(34,211,222,.055);
+      border-radius:16px;
+      padding:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .booking-test-card strong { color:var(--cyan-2); }
+    .booking-test-card p { margin:3px 0 0; color:var(--muted); font-size:12px; line-height:1.7; }
+
+    .payment-methods {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:11px;
+    }
+
+    .payment-method {
+      position:relative;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.035);
+      border-radius:18px;
+      padding:18px;
+      min-height:96px;
+      cursor:pointer;
+      transition:.18s;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .payment-method:hover { border-color:rgba(34,211,222,.5); }
+
+    .payment-method.selected {
+      border-color:var(--cyan);
+      background:rgba(34,211,222,.09);
+      box-shadow:0 0 0 2px rgba(34,211,222,.06);
+    }
+
+    .payment-method input { position:absolute; opacity:0; pointer-events:none; }
+    .payment-method strong { display:block; font-size:18px; margin-bottom:7px; }
+    .payment-method span { display:block; color:var(--muted); font-size:13px; line-height:1.75; }
+
+    .payment-instructions {
+      margin-top:14px;
+      border:1px solid rgba(230,189,99,.34);
+      background:rgba(230,189,99,.075);
+      border-radius:19px;
+      padding:20px;
+      line-height:1.9;
+      font-size:14px;
+      text-align:center;
+    }
+
+    .payment-instructions strong { color:var(--gold-2); }
+
+    .payment-target-label {
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin:6px 0 4px;
+    }
+
+    .payment-number-row {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:7px 0 10px;
+    }
+
+    .payment-number {
+      direction:ltr;
+      unicode-bidi:isolate;
+      font-size:clamp(25px,4vw,34px);
+      line-height:1.35;
+      font-weight:800;
+      letter-spacing:1.5px;
+      color:var(--white);
+      background:rgba(3,16,30,.42);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:9px 16px;
+      min-width:min(100%,260px);
+    }
+
+    .copy-payment-btn {
+      border:1px solid rgba(34,211,222,.35);
+      background:rgba(34,211,222,.09);
+      color:var(--cyan-2);
+      border-radius:12px;
+      padding:10px 14px;
+      font:inherit;
+      font-size:12px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .payment-amount {
+      width:min(100%,420px);
+      margin:12px auto 14px;
+      padding:10px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border-radius:13px;
+      background:rgba(230,189,99,.10);
+      border:1px solid rgba(230,189,99,.28);
+    }
+
+    .payment-amount span {
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .payment-amount strong {
+      color:var(--gold-2);
+      font-size:18px;
+    }
+
+    .payment-steps {
+      max-width:690px;
+      margin:0 auto;
+      padding-inline-start:24px;
+      display:grid;
+      gap:6px;
+      color:var(--text);
+      font-size:13px;
+      line-height:1.85;
+      text-align:start;
+    }
+
+    .payment-steps li::marker {
+      color:var(--cyan);
+      font-weight:800;
+    }
+
+    .receipt-box {
+      margin-top:14px;
+      border:1px dashed rgba(255,255,255,.22);
+      border-radius:16px;
+      padding:16px;
+      background:rgba(255,255,255,.025);
+      text-align:center;
+    }
+
+    .receipt-input {
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    .receipt-upload-btn {
+      width:100%;
+      min-height:48px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:13px;
+      border:1px solid rgba(34,211,222,.38);
+      background:rgba(34,211,222,.10);
+      color:var(--cyan-2);
+      font-size:14px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.18s;
+    }
+
+    .receipt-upload-btn:hover,
+    .receipt-upload-btn:focus-visible {
+      transform:translateY(-1px);
+      border-color:var(--cyan);
+      background:rgba(34,211,222,.15);
+    }
+
+    .receipt-file-status {
+      margin:10px 0 6px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.65;
+      word-break:break-word;
+    }
+
+    .booking-summary {
+      display:grid;
+      gap:9px;
+      margin-bottom:14px;
+    }
+
+    .booking-summary-row {
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      padding:9px 0;
+      line-height:1.7;
+    }
+
+    .booking-summary-row span:first-child { color:var(--muted); font-size:12px; }
+    .booking-summary-row span:last-child { text-align:end; font-size:13px; font-weight:700; }
+
+    .booking-actions {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
+
+    .booking-confirmation {
+      text-align:center;
+      max-width:720px;
+      margin:0 auto;
+    }
+
+    .booking-confirmation .icon { margin:0 auto 15px; }
+
+    .booking-reference {
+      display:inline-block;
+      direction:ltr;
+      margin:12px 0;
+      padding:10px 16px;
+      border-radius:12px;
+      border:1px solid rgba(34,211,222,.28);
+      background:rgba(34,211,222,.08);
+      color:var(--cyan-2);
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:.5px;
+    }
+
+    .booking-status-note {
+      margin:14px 0 0;
+      border:1px solid rgba(230,189,99,.24);
+      background:rgba(230,189,99,.065);
+      border-radius:15px;
+      padding:13px;
+      color:var(--text);
+      font-size:13px;
+      line-height:1.85;
+    }
+
+    .booking-loader {
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      border:2px solid rgba(3,36,58,.26);
+      border-top-color:#03243a;
+      display:inline-block;
+      vertical-align:middle;
+      animation:bookingSpin .8s linear infinite;
+      margin-inline-end:7px;
+    }
+
+    @keyframes bookingSpin { to { transform:rotate(360deg); } }
+
+    @media(max-width:700px) {
+      .booking-form-grid,
+      .booking-info-strip,
+      .payment-methods { grid-template-columns:1fr; }
+      .booking-section { padding:16px; }
+      .booking-progress-item { padding:9px 5px; font-size:11px; }
+      .booking-actions .btn { flex:1; }
+      .booking-summary-row { align-items:flex-start; }
+    }
+
+    .footer {
+      padding:0 20px 22px;
+      text-align:center;
+      color:#6f8ba5;
+      font-size:11px;
+    }
+
+    @media(max-width:860px) {
+      .menu-grid { grid-template-columns:1fr; }
+      .menu { min-height:auto; }
+    }
+
+    @media(max-width:700px) {
+      .grid2,.program-grid,.info-grid,.brand-grid,.track-grid { grid-template-columns:1fr; }
+      .about-box { grid-template-columns:1fr; }
+      .about-logo { width:145px; height:145px; }
+    }
+
+    @media(max-width:980px) {
+      .brand-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .track-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+
+    @media(max-width:620px) {
+      .topbar {
+        width:calc(100% - 20px);
+        margin-top:10px;
+        padding:10px 12px;
+      }
+      .logo { width:50px; height:50px; }
+      .brand-copy strong { font-size:17px; }
+      .badge { display:none; }
+      .main {
+        width:calc(100% - 20px);
+        margin:16px auto 24px;
+      }
+      .card { border-radius:22px; }
+      .head { padding:24px 18px 8px; }
+      .content { padding:20px 18px 24px; }
+      .choice { min-height:128px; }
+      .subtitle { font-size:14px; }
+      .nav { flex-direction:column; align-items:stretch; }
+      .chip { justify-content:center; }
+    }
+    .badge {
+    text-align:center;
+    line-height:1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <img class="logo" src="data:image/jpeg;base64,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" alt="شعار ATC Academy">
+        <div class="brand-copy">
+          <strong>ATC Academy</strong>
+          <span id="brandSub">المساعد الذكي</span>
+        </div>
+      </div>
+      <div class="badge" id="topBadge">
+       الصف الثاني بكالوريا<br>
+       عربي ولغات
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="card" aria-live="polite">
+        <div class="head">
+          <div class="eyebrow" id="eyebrow">● مساعد تفاعلي لاختيار المسار المناسب</div>
+          <h1 class="title" id="mainTitle">
+            مرحبًا بك في المساعد الذكي لـ <span class="academy">ATC Academy</span>
+          </h1>
+          <p class="subtitle" id="mainSubtitle">
+            تعرّف على البرنامج التأسيسي، اختبر مستواك، أو ابدأ الحجز.
+          </p>
+        </div>
+
+        <div class="stepper">
+          <span class="dot active" id="d1"></span>
+          <span class="dot" id="d2"></span>
+          <span class="dot" id="d3"></span>
+        </div>
+
+        <div class="content">
+          <div id="step1" class="panel active">
+            <div class="q">
+              <h2>هل أنت طالب أم ولي أمر؟</h2>
+              <div class="hint">اختر للمتابعة.</div>
+            </div>
+
+            <div class="grid2">
+              <button class="choice" type="button" onclick="selectRole('student')">
+                <div class="icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M4 10l8-4 8 4-8 4-8-4z"/>
+                    <path d="M7 12v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3>طالب</h3>
+                  <p>تعرّف على البرنامج، اختبر مستواك، وابدأ الحجز.</p>
+                </div>
+              </button>
+
+              <button class="choice" type="button" onclick="selectRole('parent')">
+                <div class="icon gold">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="9" cy="8" r="3"/>
+                    <circle cx="16.5" cy="9.5" r="2.5"/>
+                    <path d="M3.5 19c.5-3.2 2.4-5 5.5-5s5 1.8 5.5 5"/>
+                    <path d="M14 15c2.8-.5 5 .9 6 4"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3>ولي أمر</h3>
+                  <p>تعرّف على نظام البرنامج والمتابعة والتقييم وحجز الطالب.</p>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div id="step2" class="panel">
+            <div class="q">
+              <h2 id="languageQuestion"></h2>
+              <div class="hint">اختر لغة دراسة الطالب.</div>
+            </div>
+
+            <div class="grid2">
+              <button class="choice" type="button" onclick="selectLanguage('ar')">
+                <div class="icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M5 7h14M7 12h10M9 17h6"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3>عربي</h3>
+                  <p>البرنامج والاختبار باللغة العربية.</p>
+                </div>
+              </button>
+
+              <button class="choice" type="button" onclick="selectLanguage('en')">
+                <div class="icon gold">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="8"/>
+                    <path d="M4.5 12h15M12 4c2.2 2.2 3.3 4.9 3.3 8S14.2 17.8 12 20M12 4c-2.2 2.2-3.3 4.9-3.3 8s1.1 5.8 3.3 8"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3>لغات</h3>
+                  <p>البرنامج والاختبار باللغة الإنجليزية.</p>
+                </div>
+              </button>
+            </div>
+
+            <div class="nav">
+              <button class="back" type="button" onclick="goBackToRole()">رجوع</button>
+              <div class="chip" id="roleSummary"></div>
+            </div>
+          </div>
+
+          <div id="step3" class="panel">
+            <div class="q">
+              <h2 id="menuQuestion">كيف يمكنني مساعدتك؟</h2>
+              <div class="hint" id="menuHint">اختر ما تريد معرفته أو تنفيذه.</div>
+            </div>
+
+            <div class="menu-grid">
+              <button class="menu" type="button" onclick="openRoute('program')">
+                <span class="num">01</span>
+                <div>
+                  <div class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M5 4h14v16H5z"/>
+                      <path d="M8 8h8M8 12h8M8 16h5"/>
+                    </svg>
+                  </div>
+                  <h3 id="menuProgramTitle">تعرّف على البرنامج</h3>
+                  <p id="menuProgramDesc">فكرة البرنامج، ما سيتعلمه الطالب، نظام الدراسة، التقييم، المواعيد والتكلفة.</p>
+                </div>
+                <div class="action">
+                  <span id="menuProgramAction">استعراض التفاصيل</span>
+                  <span class="arrow" id="arrow1">←</span>
+                </div>
+              </button>
+
+              <button class="menu" type="button" onclick="openRoute('test')">
+                <span class="num">02</span>
+                <div>
+                  <div class="icon gold">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M7 3h10v3H7z"/>
+                      <path d="M5 5h14v16H5z"/>
+                      <path d="M8 10h8M8 14h5M8 18h4"/>
+                    </svg>
+                  </div>
+                  <h3 id="menuTestTitle">اختبر مستواك</h3>
+                  <p id="menuTestDesc">اختبار  لقياس مستوى الطالب في الأساسيات.</p>
+                </div>
+                <div class="action">
+                  <span id="menuTestAction">بدء الاختبار</span>
+                  <span class="arrow" id="arrow2">←</span>
+                </div>
+              </button>
+
+              <button class="menu" type="button" onclick="openRoute('booking')">
+                <span class="num">03</span>
+                <div>
+                  <div class="icon green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M6 3h12v18H6z"/>
+                      <path d="M9 7h6M9 11h6M9 15h3"/>
+                      <path d="M14 17l1.5 1.5L19 15"/>
+                    </svg>
+                  </div>
+                  <h3 id="menuBookingTitle">ابدأ الحجز</h3>
+                  <p id="menuBookingDesc">سجّل البيانات لإتمام الحجز.</p>
+                </div>
+                <div class="action">
+                  <span id="menuBookingAction">الانتقال للحجز</span>
+                  <span class="arrow" id="arrow3">←</span>
+                </div>
+              </button>
+            </div>
+
+            <div class="note" id="selectionSummary"></div>
+
+            <div class="nav">
+              <button class="back" id="menuBack" type="button" onclick="goBackToLanguage()">رجوع</button>
+            </div>
+          </div>
+
+          <div id="programView" class="route">
+            <div class="routebox">
+              <div id="programHome" class="program-home">
+                <div class="q" style="margin-bottom:8px">
+                  <h2 id="programHomeTitle">تعرّف على البرنامج</h2>
+                  <div class="hint" id="programHomeHint">اختر الجزء الذي تريد معرفته.</div>
+                </div>
+
+                <div class="program-grid">
+                  <button class="program-item" type="button" onclick="openProgramDetail('idea')">
+                    <div class="icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M9 18h6M10 21h4"/>
+                        <path d="M8 14c-1.7-1.2-3-3.2-3-5.5A7 7 0 0 1 19 8.5c0 2.3-1.3 4.3-3 5.5-.7.5-1 1.2-1 2H9c0-.8-.3-1.5-1-2z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 id="cardIdeaTitle">فكرة البرنامج</h3>
+                      <p id="cardIdeaDesc">هدف البرنامج وكيف يستعد الطالب لمسار البرمجة والذكاء الاصطناعي.</p>
+                    </div>
+                  </button>
+
+                  <button class="program-item" type="button" onclick="openProgramDetail('learn')">
+                    <div class="icon gold">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M4 6h6v12H4zM14 6h6v12h-6z"/>
+                        <path d="M10 8c1.4-.8 2.6-.8 4 0M10 16c1.4-.8 2.6-.8 4 0"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 id="cardLearnTitle">ماذا سيتعلم الطالب</h3>
+                      <p id="cardLearnDesc">أهم الموضوعات والمهارات التي يتناولها البرنامج.</p>
+                    </div>
+                  </button>
+
+                  <button class="program-item" type="button" onclick="openProgramDetail('system')">
+                    <div class="icon green">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <rect x="3" y="5" width="18" height="12" rx="2"/>
+                        <path d="M8 21h8M12 17v4M8 10h8M8 13h5"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 id="cardSystemTitle">نظام الدراسة والتقييم</h3>
+                      <p id="cardSystemDesc">اللقاءات، المتابعة، الاختبارات والمشروع النهائي.</p>
+                    </div>
+                  </button>
+
+                  <button class="program-item" type="button" onclick="openProgramDetail('dates')">
+                    <div class="icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <rect x="3" y="5" width="18" height="16" rx="2"/>
+                        <path d="M8 3v4M16 3v4M3 10h18M8 14h3M13 14h3M8 17h3"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 id="cardDatesTitle">المواعيد والتكلفة</h3>
+                      <p id="cardDatesDesc">موعد البداية، آخر موعد للحجز والرسوم.</p>
+                    </div>
+                  </button>
+
+                  <button class="program-item" type="button" onclick="openProgramDetail('about')">
+                    <div class="icon gold">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <circle cx="12" cy="8" r="3"/>
+                        <path d="M5 20c.6-4 3-6 7-6s6.4 2 7 6"/>
+                        <path d="M18 5h3M19.5 3.5v3"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 id="cardAboutTitle">عن د. آيات منصور</h3>
+                      <p id="cardAboutDesc">الخبرة الأكاديمية والمهنية القائمة وراء البرنامج.</p>
+                    </div>
+                  </button>
+                </div>
+
+                <div class="program-actions">
+                  <button class="btn goldbtn" id="programTestBtn" type="button" onclick="openRoute('test')">اختبر مستواك</button>
+                  <button class="btn primary" id="programBookingBtn" type="button" onclick="openRoute('booking')">ابدأ الحجز</button>
+                  <button class="btn secondary" id="programBackBtn" type="button" onclick="backToMenu()">العودة للقائمة</button>
+                </div>
+              </div>
+
+              <div id="programIdea" class="program-detail"></div>
+              <div id="programLearn" class="program-detail"></div>
+              <div id="programSystem" class="program-detail"></div>
+              <div id="programDates" class="program-detail"></div>
+              <div id="programAbout" class="program-detail"></div>
+            </div>
+          </div>
+
+          <div id="testView" class="route">
+            <div class="routebox">
+              <div id="testDynamic" class="test-shell"></div>
+            </div>
+          </div>
+
+          <div id="bookingView" class="route">
+            <div class="routebox">
+              <div id="bookingDynamic" class="booking-shell"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="footerText">ATC Academy — المساعد الذكي</footer>
+  </div>
+
+  <script>
+    const logoUri = 'data:image/jpeg;base64,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';
+
+    const userData = {
+      role: "",
+      language: "",
+      testScore: null,
+      testLevel: "",
+      bookingDraft: null
+    };
+
+    const roleLabels = {
+      student: "طالب",
+      parent: "ولي أمر"
+    };
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function updateStepper(activeNumber) {
+      ["d1","d2","d3"].forEach((id,index) => {
+        document.getElementById(id).classList.toggle("active", index === activeNumber - 1);
+      });
+    }
+
+    function showStep(from, to, n) {
+      document.getElementById(from).classList.remove("active");
+      document.getElementById(to).classList.add("active");
+      updateStepper(n);
+      window.scrollTo({ top:0, behavior:"smooth" });
+    }
+
+    function selectRole(role) {
+      userData.role = role;
+      setText(
+        "languageQuestion",
+        role === "student"
+          ? "ما لغة دراستك في المدرسة؟"
+          : "ما لغة دراسة الطالب في المدرسة؟"
+      );
+      setText("roleSummary", "الصفة المختارة: " + roleLabels[role]);
+      showStep("step1","step2",2);
+    }
+
+    function selectLanguage(language) {
+      userData.language = language;
+      applyAudience();
+      showStep("step2","step3",3);
+    }
+
+    function goBackToRole() {
+      showStep("step2","step1",1);
+    }
+
+    function goBackToLanguage() {
+      showStep("step3","step2",2);
+    }
+
+    function applyAudience() {
+      const isStudent = userData.role === "student";
+      const isEnglishStudent = isStudent && userData.language === "en";
+
+      document.documentElement.lang = isEnglishStudent ? "en" : "ar";
+      document.documentElement.dir = isEnglishStudent ? "ltr" : "rtl";
+
+      if (isEnglishStudent) {
+        setText("brandSub","Smart Assistant");
+        document.getElementById("topBadge").innerHTML =
+        "Second Year Baccalaureate<br>Arabic & English";
+        setText("eyebrow","● Interactive assistant for choosing the right path");
+        document.getElementById("mainTitle").innerHTML =
+          'Welcome to the <span class="academy">ATC Academy</span> Smart Assistant';
+        setText(
+          "mainSubtitle",
+          "Learn about the foundation program, take the placement test, or start registration."
+        );
+
+        setText("menuQuestion","How can I help you?");
+        setText("menuHint","Choose the path you would like to start.");
+        setText("menuProgramTitle","Learn About the Program");
+        setText("menuProgramDesc","Program purpose, learning areas, study system, assessment, dates, and fees.");
+        setText("menuProgramAction","View details");
+        setText("menuTestTitle","Take the Placement Test");
+        setText("menuTestDesc","A short online test to measure your current level in the fundamentals.");
+        setText("menuTestAction","Start the test");
+        setText("menuBookingTitle","Start Registration");
+        setText("menuBookingDesc","Enter your details after deciding to join the program.");
+        setText("menuBookingAction","Go to registration");
+        ["arrow1","arrow2","arrow3"].forEach(id => setText(id,"→"));
+        setText("selectionSummary","The assistant has been customized for: Student — English track.");
+        setText("menuBack","Back");
+
+        setText("programHomeTitle","Learn About the Program");
+        setText("programHomeHint","Choose the section you would like to view.");
+        setText("cardIdeaTitle","Program Purpose");
+        setText("cardIdeaDesc","Why was the program designed, and how does it prepare you for the track?");
+        setText("cardLearnTitle","What Will You Learn?");
+        setText("cardLearnDesc","Key first-year topics plus extra foundation supported by academic references.");
+        setText("cardSystemTitle","Study and Assessment");
+        setText("cardSystemDesc","Sessions, follow-up, assessments, and the final project.");
+        setText("cardDatesTitle","Dates and Fees");
+        setText("cardDatesDesc","Start date, booking deadline, duration, and fees.");
+        setText("cardAboutTitle","About Dr. Ayat Mansour");
+        setText("cardAboutDesc","The academic qualifications and professional experience supporting the program.");
+        setText("programTestBtn","Take the Placement Test");
+        setText("programBookingBtn","Start Registration");
+        setText("programBackBtn","Back to Menu");
+
+        setText("testPlaceholderTitle","Placement Test");
+        setText("testPlaceholderText","The 26-question online placement test will be connected in the next step.");
+        setText("testBackBtn","Back to Menu");
+        setText("bookingPlaceholderTitle","Registration Details");
+        setText("bookingPlaceholderText","The registration form and Google Sheet connection will be added after the data flow is approved.");
+        setText("bookingBackBtn","Back to Menu");
+        setText("footerText","ATC Academy — Smart Assistant");
+      } else {
+        setText("brandSub","المساعد الذكي");
+        document.getElementById("topBadge").innerHTML ="الصف الثاني بكالوريا<br>عربي ولغات";
+        setText("eyebrow","● مساعد تفاعلي لاختيار المسار المناسب");
+        document.getElementById("mainTitle").innerHTML =
+          'مرحبًا بك في المساعد الذكي لـ <span class="academy">ATC Academy</span>';
+
+        if (isStudent) {
+          setText(
+            "mainSubtitle",
+            "تعرّف على البرنامج التأسيسي للصف الثاني بكالوريا عربي ولغات، اختبر مستواك، أو ابدأ الحجز"
+          );
+          setText("menuQuestion","كيف يمكنني مساعدتك؟");
+          setText("menuHint","اختر ما تريد معرفته أو تنفيذه.");
+          setText("menuProgramTitle","تعرّف على البرنامج");
+          setText("menuProgramDesc","فكرة البرنامج، ما سيتعلمه الطالب، نظام الدراسة، التقييم، المواعيد والتكلفة.");
+          setText("menuProgramAction","استعراض التفاصيل");
+          setText("menuTestTitle","اختبر مستواك");
+          setText("menuTestDesc","اختبار  لقياس المستوي في الأساسيات.");
+          setText("menuTestAction","بدء الاختبار");
+          setText("menuBookingTitle","ابدأ الحجز");
+          setText("menuBookingDesc","سجّل البيانات لاتمام الحجز.");
+          setText("menuBookingAction","الانتقال للحجز");
+          setText("selectionSummary","تم تخصيص المساعد وفق الاختيارات: طالب — عربي.");
+          setText("cardLearnTitle","ماذا ستتعلم؟");
+          setText("cardLearnDesc","أهم محتويات الصف الأول مع تأسيس إضافي مدعوم بمرجعيات أكاديمية.");
+          setText("programTestBtn","اختبر مستواك");
+          setText("programBookingBtn","ابدأ الحجز");
+        } else {
+          setText(
+            "mainSubtitle",
+            "تعرّف على البرنامج المناسب للطالب، نظام المتابعة والتقييم، اختبار المستوى، أو ابدأ إجراءات الحجز."
+          );
+          setText("menuQuestion","كيف يمكنني مساعدتك؟");
+          setText("menuHint","اختر ما تريد معرفته أو تنفيذه للطالب.");
+          setText("menuProgramTitle","تعرّف على برنامج الطالب");
+          setText("menuProgramDesc","فكرة البرنامج، ما سيتعلمه الطالب، نظام الدراسة، المتابعة، المواعيد والتكلفة.");
+          setText("menuProgramAction","استعراض التفاصيل");
+          setText(
+            "menuTestTitle",
+            userData.language === "en"
+              ? "اختبار مستوى الطالب باللغة الإنجليزية"
+              : "اختبار مستوى الطالب"
+          );
+          setText(
+            "menuTestDesc",
+            userData.language === "en"
+              ? "اختبار إلكتروني باللغة الإنجليزية لتحديد مستوى الطالب في الأساسيات."
+              : "اختبار إلكتروني باللغة العربية لتحديد مستوى الطالب في الأساسيات."
+          );
+          setText("menuTestAction","عرض الاختبار");
+          setText("menuBookingTitle","ابدأ حجز الطالب");
+          setText("menuBookingDesc","سجّل بيانات الطالب وولي الأمر بعد اتخاذ قرار الاشتراك.");
+          setText("menuBookingAction","الانتقال للحجز");
+          setText(
+            "selectionSummary",
+            "تم تخصيص المساعد وفق الاختيارات: ولي أمر — الطالب يدرس " +
+            (userData.language === "en" ? "لغات." : "عربي.")
+          );
+          setText("cardLearnTitle","ماذا سيتعلم الطالب؟");
+          setText("cardLearnDesc","أهم محتويات الصف الأول مع تأسيس إضافي مدعوم بمرجعيات أكاديمية.");
+          setText(
+            "programTestBtn",
+            userData.language === "en"
+              ? "اختبار مستوى الطالب باللغة الإنجليزية"
+              : "اختبار مستوى الطالب"
+          );
+          setText("programBookingBtn","ابدأ حجز الطالب");
+        }
+
+        ["arrow1","arrow2","arrow3"].forEach(id => setText(id,"←"));
+        setText("menuBack","رجوع");
+        setText("programHomeTitle", isStudent ? "تعرّف على البرنامج" : "تعرّف على برنامج الطالب");
+        setText("programHomeHint","اختر الجزء الذي تريد معرفته.");
+        setText("cardIdeaTitle","فكرة البرنامج");
+        setText("cardIdeaDesc","هدف البرنامج وكيف يستعد الطالب لمسار البرمجة والذكاء الاصطناعي.");
+        setText("cardSystemTitle","نظام الدراسة والتقييم");
+        setText("cardSystemDesc","اللقاءات، المتابعة، الاختبارات والمشروع النهائي.");
+        setText("cardDatesTitle","المواعيد والتكلفة");
+        setText("cardDatesDesc","موعد البداية، آخر موعد للحجز والرسوم.");
+        setText("cardAboutTitle","عن د. آيات منصور");
+        setText("cardAboutDesc","الخبرة الأكاديمية والمهنية القائمة وراء البرنامج.");
+        setText("programBackBtn","العودة للقائمة");
+
+        setText(
+          "testPlaceholderTitle",
+          isStudent
+            ? "اختبار تحديد المستوى"
+            : (userData.language === "en"
+                ? "اختبار مستوى الطالب باللغة الإنجليزية"
+                : "اختبار مستوى الطالب")
+        );
+        setText(
+          "testPlaceholderText",
+          "الاختبار مكوّن من 26 سؤالًا من محتوى منهج الصف الأول بكالوريا."
+        );
+        setText("testBackBtn","العودة للقائمة");
+        setText("bookingPlaceholderTitle", isStudent ? "بيانات الحجز" : "بيانات حجز الطالب");
+        setText("bookingPlaceholderText","سيتم ربط نموذج الحجز وجوجل شيت بعد اعتماد مسار البيانات.");
+        setText("bookingBackBtn","العودة للقائمة");
+        setText("footerText","ATC Academy — المساعد الذكي");
+      }
+
+      renderProgramDetails();
+      renderTestView();
+    }
+
+
+    function getCompanyBadges(isEnglish) {
+      const companies = [
+        {
+          name:"Microsoft",
+          caption: isEnglish ? "Applied and software pathways" : "مرجعيات في التطبيقات والبرمجيات",
+          logo: `
+            <svg viewBox="0 0 180 50" aria-hidden="true">
+              <rect x="6" y="6" width="14" height="14" fill="#f25022"/>
+              <rect x="24" y="6" width="14" height="14" fill="#7fba00"/>
+              <rect x="6" y="24" width="14" height="14" fill="#00a4ef"/>
+              <rect x="24" y="24" width="14" height="14" fill="#ffb900"/>
+              <text x="50" y="31" font-size="22" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">Microsoft</text>
+            </svg>`
+        },
+        {
+          name:"Oracle",
+          caption: isEnglish ? "Database and enterprise systems" : "مرجعيات في قواعد البيانات والأنظمة",
+          logo: `
+            <svg viewBox="0 0 180 50" aria-hidden="true">
+              <rect x="6" y="8" width="168" height="34" rx="8" fill="none" stroke="#ff4d4f" stroke-width="2"/>
+              <text x="90" y="31" text-anchor="middle" font-size="24" font-weight="800" fill="#ff4d4f" font-family="Arial, sans-serif">ORACLE</text>
+            </svg>`
+        },
+        {
+          name:"Cisco",
+          caption: isEnglish ? "Networking and connectivity" : "مرجعيات في الشبكات والاتصال",
+          logo: `
+            <svg viewBox="0 0 180 50" aria-hidden="true">
+              <g fill="#22d3de">
+                <rect x="26" y="8" width="4" height="12" rx="2"/>
+                <rect x="36" y="4" width="4" height="16" rx="2"/>
+                <rect x="46" y="1" width="4" height="19" rx="2"/>
+                <rect x="56" y="4" width="4" height="16" rx="2"/>
+                <rect x="66" y="8" width="4" height="12" rx="2"/>
+                <rect x="86" y="8" width="4" height="12" rx="2"/>
+                <rect x="96" y="4" width="4" height="16" rx="2"/>
+                <rect x="106" y="1" width="4" height="19" rx="2"/>
+                <rect x="116" y="4" width="4" height="16" rx="2"/>
+                <rect x="126" y="8" width="4" height="12" rx="2"/>
+              </g>
+              <text x="78" y="41" text-anchor="middle" font-size="22" font-weight="700" fill="#22d3de" font-family="Arial, sans-serif">CISCO</text>
+            </svg>`
+        },
+        {
+          name:"Intel",
+          caption: isEnglish ? "Hardware and computing concepts" : "مرجعيات في الحوسبة ومفاهيم العتاد",
+          logo: `
+            <svg viewBox="0 0 180 50" aria-hidden="true">
+              <ellipse cx="92" cy="25" rx="67" ry="18" fill="none" stroke="#66b6ff" stroke-width="2.4"/>
+              <text x="92" y="31" text-anchor="middle" font-size="24" font-weight="800" fill="#66b6ff" font-family="Arial, sans-serif">intel</text>
+            </svg>`
+        }
+      ];
+
+      return `
+        <div class="brand-grid">
+          ${companies.map(company => `
+            <div class="brand-card">
+              <div>
+                <div class="brand-logo">${company.logo}</div>
+                <div class="brand-name">${company.name}</div>
+              </div>
+              <div class="brand-caption">${company.caption}</div>
+            </div>
+          `).join("")}
+        </div>`;
+    }
+
+    function getTrackCards(isEnglish, compact = false) {
+      const items = isEnglish
+        ? [
+            {
+              title:"Programming",
+              sub:"Logic, algorithms, and software fundamentals",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg>`
+            },
+            {
+              title:"Databases",
+              sub:"Structured data, tables, and queries",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg>`
+            },
+            {
+              title:"Networks",
+              sub:"Devices, connections, and communication",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="7" height="5" rx="1"/><rect x="14" y="4" width="7" height="5" rx="1"/><rect x="8.5" y="15" width="7" height="5" rx="1"/><path d="M6.5 9v3h11V9M12 12v3"/></svg>`
+            },
+            {
+              title:"Cybersecurity",
+              sub:"Protection, safety, and secure behavior",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6l7-3z"/><path d="M9.5 12l1.7 1.7L14.8 10"/></svg>`
+            },
+            {
+              title:"Artificial Intelligence",
+              sub:"Introductory AI concepts and applications",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>`
+            },
+            {
+              title:"Web Design",
+              sub:"Page structure and interactive web basics",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M7 7h.01M11 7h.01M8 14l2.5-2 2 2 3.5-3 2 2"/></svg>`
+            }
+          ]
+        : [
+            {
+              title:"البرمجة",
+              sub:"منطق الحل والخوارزميات وأساسيات تطوير البرمجيات",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg>`
+            },
+            {
+              title:"قواعد البيانات",
+              sub:"تنظيم البيانات والجداول والاستعلامات الأساسية",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg>`
+            },
+            {
+              title:"الشبكات",
+              sub:"الأجهزة والاتصال وكيفية انتقال البيانات",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="7" height="5" rx="1"/><rect x="14" y="4" width="7" height="5" rx="1"/><rect x="8.5" y="15" width="7" height="5" rx="1"/><path d="M6.5 9v3h11V9M12 12v3"/></svg>`
+            },
+            {
+              title:"الأمن السيبراني",
+              sub:"الحماية الرقمية والسلوك الآمن وأمن المعلومات",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6l7-3z"/><path d="M9.5 12l1.7 1.7L14.8 10"/></svg>`
+            },
+            {
+              title:"الذكاء الاصطناعي",
+              sub:"مفاهيم تمهيدية وتطبيقات أساسية في المجال",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>`
+            },
+            {
+              title:"تصميم الويب",
+              sub:"بنية الصفحات ومبادئ تصميم وتطوير الويب",
+              icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M7 7h.01M11 7h.01M8 14l2.5-2 2 2 3.5-3 2 2"/></svg>`
+            }
+          ];
+
+      return `
+        <div class="track-grid ${compact ? 'compact' : ''}">
+          ${items.map(item => `
+            <div class="track-card ${compact ? 'compact' : ''}">
+              <div class="track-figure">${item.icon}</div>
+              <div>
+                <h4 class="track-title">${item.title}</h4>
+                <p class="track-sub">${item.sub}</p>
+              </div>
+            </div>
+          `).join("")}
+        </div>`;
+    }
+
+    function programCopy() {
+      const isStudent = userData.role === "student";
+      const isEnglish = isStudent && userData.language === "en";
+
+      if (isEnglish) {
+        return {
+          ideaTitle:"Program Purpose",
+          ideaSub:"A structured foundation before the school year begins.",
+          ideaText:"An online foundation program for second-year Baccalaureate students preparing for the Programming and Artificial Intelligence track. The program builds a clear and connected foundation in the technical concepts you need, with emphasis on understanding and application rather than memorization. It is not only a review of first-year content; it is an academic bridge that helps you begin the track with greater confidence.",
+          learnTitle:"What Will You Learn?",
+          learnSub:"Key first-year topics plus structured extra foundation.",
+          learnItems:[
+            "Computer fundamentals and information systems.",
+            "Networks and information security.",
+            "Databases and data analysis.",
+            "Algorithms and programming fundamentals.",
+            "An introduction to artificial intelligence.",
+            "Web page design fundamentals."
+          ],
+          learnNote:"The program includes the most important first-year topics and adds organized extra foundation connected to Microsoft, Oracle, Cisco, and Intel related pathways.",
+          systemTitle:"Study and Assessment",
+          systemSub:"Sessions, activities, assessment, and follow-up.",
+          systemBoxes:[
+            ["Required equipment","A smartphone and an internet connection only"],
+            ["Program duration","4 weeks"],
+            ["Number of sessions","16 sessions"],
+            ["Session duration","2 hours"]
+          ],
+          systemItems:[
+            "Everything related to study—from educational sessions and learning materials to activities, exercises, assessments, follow-up, and the final project—is provided through the ATC Academy Platform.",
+            "Separate groups are organized for Arabic-track and English-track students.",
+            "Fixed session times are agreed with each group.",
+            "The program includes guided practice and applied activities.",
+            "Students complete theoretical and practical assessments.",
+            "Each student’s progress is followed throughout the program.",
+            "A final project is produced and submitted through the ATC Academy Platform."
+          ],
+          datesTitle:"Dates and Fees",
+          datesSub:"Essential information before registration.",
+          datesBoxes:[
+            ["Program start","15 August 2026"],
+            ["Registration deadline","31 July 2026"],
+            ["Program duration","4 weeks"],
+            ["Program fee","EGP 500"]
+          ],
+          datesNote:"Final session times are confirmed after students are organized into the appropriate group.",
+          aboutTitle:"About Dr. Ayat Mansour",
+          aboutSub:"Academic qualifications and professional experience supporting the program.",
+          aboutItems:[
+            "PhD in Computer Curriculum and Teaching Methods.",
+            "More than 20 years of experience in teaching and training in computer studies.",
+            "Practical experience in programming, databases, web design, and software production.",
+            "Experience in information systems and digital transformation in the education and local administration sectors.",
+            "Holder of accredited training certificates related to Microsoft, Oracle, Cisco, and Intel pathways."
+          ],
+          home:"Back to Program Sections",
+          nextLearn:"Next: What Will You Learn?",
+          nextSystem:"Next: Study and Assessment",
+          nextDates:"Next: Dates and Fees",
+          nextAbout:"Next: About Dr. Ayat Mansour"
+        };
+      }
+
+      const studentPhrase = isStudent ? "يساعدك" : "يساعد الطالب";
+      const studentStart = isStudent ? "تبدأ" : "يبدأ الطالب";
+      const learnTitle = "ماذا سيتعلم الطالب؟";
+
+      return {
+        ideaTitle:"فكرة البرنامج",
+        ideaSub:"تأسيس منظم قبل بدء الدراسة.",
+        ideaText:
+          "برنامج تأسيسي أونلاين لطلاب الصف الثاني بكالوريا عربي ولغات، للاستعداد لمسار البرمجة والذكاء الاصطناعي. " +
+          "يركز البرنامج على بناء أساس واضح ومترابط في المفاهيم والمهارات الأساسية، مع الاعتماد على الفهم والتطبيق. " +
+          "ولا يقتصر على مراجعة محتوى الصف الأول، بل يهيئ الطالب لبدء دراسة المسار بثقة واستعداد أفضل.",
+       learnTitle:learnTitle,
+        learnSub:"أهم الموضوعات والمهارات التي يتناولها البرنامج.",
+        learnItems:[
+          "أساسيات الحاسب ونظم المعلومات.",
+          "الشبكات وأمن المعلومات.",
+          "قواعد البيانات وتحليل البيانات.",
+          "الخوارزميات وأساسيات البرمجة.",
+          "مقدمة في الذكاء الاصطناعي.",
+          "أساسيات تصميم صفحات الويب."
+        ],
+learnNote:
+  "يتناول البرنامج أهم محتويات الصف الأول المرتبطة بالمسار، مع تأسيس إضافي منظم يساعد الطالب على الربط بين المفاهيم والاستعداد لدراسة الصف الثاني.",
+        learnNote:"يجمع البرنامج بين أهم محتويات الصف الأول والتأسيس الإضافي بصورة مترابطة تساعد الطالب على فهم العلاقة بين أجزاء المسار والاستعداد لدراسة المادة في الصف الثاني.",
+        systemTitle:"نظام الدراسة والتقييم",
+        systemSub:"اللقاءات والأنشطة والاختبارات والمتابعة.",
+        systemBoxes:[
+          ["المتطلبات","موبايل واتصال بالإنترنت فقط"],
+          ["مدة البرنامج","4 أسابيع"],
+          ["عدد اللقاءات","16 لقاءً"],
+          ["مدة اللقاء","ساعتان"]
+        ],
+        systemItems:[
+          "كل ما يتعلق بالدراسة، من اللقاءات التعليمية والمواد والأنشطة إلى التدريبات والاختبارات والمتابعة والمشروع النهائي، يتم من خلال منصة ATC Academy.",
+          "توجد مجموعات مستقلة لطلاب العربي وطلاب اللغات.",
+          "تُحدَّد مواعيد ثابتة بالاتفاق مع كل مجموعة.",
+          "يتضمن البرنامج تدريبات وتطبيقات موجهة.",
+          "يخضع الطالب لاختبارات نظرية وعملية.",
+          "تتم متابعة مستوى الطالب طوال البرنامج.",
+          "يتم إنتاج المشروع النهائي وتسليمه من خلال منصة ATC Academy."
+        ],
+        datesTitle:"المواعيد والتكلفة",
+        datesSub:"البيانات الأساسية قبل الحجز.",
+        datesBoxes:[
+          ["بداية البرنامج","15 أغسطس 2026"],
+          ["آخر موعد للحجز","31 يوليو 2026"],
+          ["مدة البرنامج","4 أسابيع"],
+          ["رسوم الاشتراك","500 جنيه"]
+        ],
+        datesNote:"تُحدَّد المواعيد النهائية بعد تنظيم الطلاب داخل المجموعة المناسبة.",
+        aboutTitle:"عن د. آيات منصور",
+        aboutSub:"الخبرة الأكاديمية والمهنية القائمة وراء البرنامج.",
+        aboutItems:[
+          "دكتوراه في مناهج وطرق تدريس الحاسب الآلي.",
+          "خبرة تتجاوز 20 عامًا في تدريس وتدريب الحاسب.",
+          "خبرة عملية في البرمجة، قواعد البيانات، تصميم المواقع وإنتاج البرمجيات.",
+          "خبرات مهنية في قطاعي التعليم والمحليات.",
+          "حصلت د. آيات منصور على شهادات تدريبية معتمدة وخبرات مرتبطة بمسارات Microsoft وOracle وCisco وIntel."
+        ],
+        home:"العودة لأقسام البرنامج",
+        nextLearn:"التالي: ماذا ستتعلم؟",
+        nextSystem:"التالي: نظام الدراسة",
+        nextDates:"التالي: المواعيد والتكلفة",
+        nextAbout:"التالي: عن د. آيات منصور"
+      };
+    }
+
+    function renderProgramDetails() {
+      const c = programCopy();
+      const isEnglish = userData.role === "student" && userData.language === "en";
+
+      document.getElementById("programIdea").innerHTML = `
+        <div class="detail-head">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M9 18h6M10 21h4"/>
+              <path d="M8 14c-1.7-1.2-3-3.2-3-5.5A7 7 0 0 1 19 8.5c0 2.3-1.3 4.3-3 5.5-.7.5-1 1.2-1 2H9c0-.8-.3-1.5-1-2z"/>
+            </svg>
+          </div>
+          <div><h2>${c.ideaTitle}</h2><p>${c.ideaSub}</p></div>
+        </div>
+        <div class="detail-copy"><p>${c.ideaText}</p></div>
+        <div class="program-actions">
+          <button class="btn secondary" type="button" onclick="backToProgramHome()">${c.home}</button>
+          <button class="btn primary" type="button" onclick="openProgramDetail('learn')">${c.nextLearn}</button>
+        </div>`;
+
+      document.getElementById("programLearn").innerHTML = `
+        <div class="detail-head">
+          <div class="icon gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 6h6v12H4zM14 6h6v12h-6z"/>
+              <path d="M10 8c1.4-.8 2.6-.8 4 0M10 16c1.4-.8 2.6-.8 4 0"/>
+            </svg>
+          </div>
+          <div><h2>${c.learnTitle}</h2><p>${c.learnSub}</p></div>
+        </div>
+        <div class="detail-copy"><ul class="detail-list">${c.learnItems.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+        <div class="note">${c.learnNote}</div>
+
+        <div class="showcase-block">
+          <h3 class="showcase-title"><span class="tiny-dot"></span>${isEnglish ? "Academic and professional reference pathways" : "مرجعيات أكاديمية ومهنية داعمة"}</h3>
+          <p class="showcase-note">${isEnglish
+            ? "The program covers the most important first-year topics for the track and adds structured extra foundation supported by pathways and experience connected to Microsoft, Oracle, Cisco, and Intel."
+            : "يشمل البرنامج أهم محتويات الصف الأول اللازمة للمسار، مع تأسيس إضافي منظم ومدعوم بخبرات ومسارات أكاديمية ومهنية مرتبطة بـ Microsoft وOracle وCisco وIntel."}</p>
+          ${getCompanyBadges(isEnglish)}
+        </div>
+
+        <div class="showcase-block">
+          <h3 class="showcase-title"><span class="tiny-dot"></span>${isEnglish ? "Related professional fields" : "مسارات مهنية مرتبطة بالمحتوى"}</h3>
+          <p class="showcase-note">${isEnglish
+            ? "These are examples of the fields and pathways that the student is being prepared to understand more confidently."
+            : "هذه أمثلة للمجالات والمسارات المهنية التي يتهيأ الطالب لفهمها بصورة أقوى من خلال البرنامج."}</p>
+          ${getTrackCards(isEnglish)}
+        </div>
+
+        <div class="program-actions">
+          <button class="btn secondary" type="button" onclick="backToProgramHome()">${c.home}</button>
+          <button class="btn primary" type="button" onclick="openProgramDetail('system')">${c.nextSystem}</button>
+        </div>`;
+
+      document.getElementById("programSystem").innerHTML = `
+        <div class="detail-head">
+          <div class="icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="5" width="18" height="12" rx="2"/>
+              <path d="M8 21h8M12 17v4M8 10h8M8 13h5"/>
+            </svg>
+          </div>
+          <div><h2>${c.systemTitle}</h2><p>${c.systemSub}</p></div>
+        </div>
+        <div class="info-grid">${c.systemBoxes.map(x=>`<div class="info-box"><strong>${x[0]}</strong><span>${x[1]}</span></div>`).join("")}</div>
+        <div class="detail-copy" style="margin-top:12px"><ul class="detail-list">${c.systemItems.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+        <div class="program-actions">
+          <button class="btn secondary" type="button" onclick="backToProgramHome()">${c.home}</button>
+          <button class="btn primary" type="button" onclick="openProgramDetail('dates')">${c.nextDates}</button>
+        </div>`;
+
+      document.getElementById("programDates").innerHTML = `
+        <div class="detail-head">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="5" width="18" height="16" rx="2"/>
+              <path d="M8 3v4M16 3v4M3 10h18M8 14h3M13 14h3M8 17h3"/>
+            </svg>
+          </div>
+          <div><h2>${c.datesTitle}</h2><p>${c.datesSub}</p></div>
+        </div>
+        <div class="info-grid">${c.datesBoxes.map(x=>`<div class="info-box"><strong>${x[0]}</strong><span>${x[1]}</span></div>`).join("")}</div>
+        <div class="note">${c.datesNote}</div>
+        <div class="program-actions">
+          <button class="btn secondary" type="button" onclick="backToProgramHome()">${c.home}</button>
+          <button class="btn primary" type="button" onclick="openProgramDetail('about')">${c.nextAbout}</button>
+        </div>`;
+
+      document.getElementById("programAbout").innerHTML = `
+        <div class="detail-head">
+          <div class="icon gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="8" r="3"/>
+              <path d="M5 20c.6-4 3-6 7-6s6.4 2 7 6"/>
+              <path d="M18 5h3M19.5 3.5v3"/>
+            </svg>
+          </div>
+          <div><h2>${c.aboutTitle}</h2><p>${c.aboutSub}</p></div>
+        </div>
+        <div class="detail-copy">
+          <div class="about-box">
+            <img class="about-logo" src="${logoUri}" alt="ATC Academy logo">
+            <div>
+              <p class="about-lead">${isEnglish
+                ? "Dr. Ayat Mansour delivers the program based on her academic specialization in computer curriculum and teaching methods, together with practical experience in programming, databases, web design, software production, information systems, and digital transformation."
+                : "يقوم البرنامج على خبرة د. آيات منصور الأكاديمية والمهنية في مناهج وطرق تدريس الحاسب الآلي، إلى جانب خبرة عملية  في البرمجة، قواعد البيانات، تصميم المواقع، وإنتاج البرمجيات."}</p>
+              <ul class="detail-list">${c.aboutItems.map(x=>`<li>${x}</li>`).join("")}</ul>
+            </div>
+          </div>
+
+          <div class="showcase-block">
+            <h3 class="showcase-title"><span class="tiny-dot"></span>${isEnglish ? "Accredited certificates and professional pathways" : "شهادات ومسارات مهنية حصلت عليها د. آيات منصور"}</h3>
+            <p class="showcase-note">${isEnglish
+              ? "Dr. Ayat Mansour holds accredited training certificates and professional experience related to Microsoft, Oracle, Cisco, and Intel pathways."
+              : "تستند الرؤية التدريبية والمحتوى المقدم إلى خبرات ومسارات مرتبطة بـ Microsoft وOracle وCisco وIntel."}</p>
+            ${getCompanyBadges(isEnglish)}
+          </div>
+
+          <div class="showcase-block">
+            <h3 class="showcase-title"><span class="tiny-dot"></span>${isEnglish ? "Professional fields reflected in the training content" : "مجالات مهنية ينعكس أثرها في المحتوى التدريبي"}</h3>
+            <p class="showcase-note">${isEnglish
+              ? "These fields represent examples of the professional directions reflected in the design and delivery of the program."
+              : "تمثل هذه المجالات أمثلة للمسارات المهنية التي ينعكس أثرها في تصميم البرنامج ومحتواه التدريبي."}</p>
+            ${getTrackCards(isEnglish, true)}
+          </div>
+        </div>
+        <div class="program-actions">
+          <button class="btn secondary" type="button" onclick="backToProgramHome()">${c.home}</button>
+          <button class="btn goldbtn" type="button" onclick="openRoute('test')">${
+            userData.role === "student"
+              ? (userData.language === "en" ? "Take the Placement Test" : "اختبر مستواك")
+              : (userData.language === "en" ? "اختبار مستوى الطالب باللغة الإنجليزية" : "اختبار مستوى الطالب")
+          }</button>
+          <button class="btn primary" type="button" onclick="openRoute('booking')">${
+            userData.role === "student"
+              ? (userData.language === "en" ? "Start Registration" : "ابدأ الحجز")
+              : "ابدأ حجز الطالب"
+          }</button>
+        </div>`;
+    }
+
+
+    const placementTests = {
+      ar: {
+        questions: [
+          {
+            question:"درجات الطلاب كما تم تسجيلها قبل تحليلها تُعد مثالًا على:",
+            options:["بيانات","معلومات","برنامج","شبكة"],
+            answer:0
+          },
+          {
+            question:"ما الإجراء الأهم قبل نشر معلومة عبر الإنترنت؟",
+            options:["مشاركتها بسرعة","تغيير لون الخط","التحقق من دقتها ومصدرها","حذف اسم الكاتب"],
+            answer:2
+          },
+          {
+            question:"أي مما يلي يُعد وسيلة تحقق حيوية؟",
+            options:["كلمة المرور","بصمة الإصبع","اسم المستخدم","الرقم السري PIN"],
+            answer:1
+          },
+          {
+            question:"ما نوع الحماية القانونية المناسب لاختراع تقني جديد؟",
+            options:["حقوق النشر","العلامة التجارية","براءة الاختراع","الخصوصية الرقمية"],
+            answer:2
+          },
+          {
+            question:"أي عنصر من عناصر أمن المعلومات يعني بقاء الخدمة متاحة عند الحاجة إليها؟",
+            options:["السرية","التكامل","الإتاحة","التشفير"],
+            answer:2
+          },
+          {
+            question:"أي اختيار يمثل مصادقة متعددة العوامل بصورة أفضل؟",
+            options:["كلمتا مرور مختلفتان","كلمة مرور مع بصمة إصبع","اسم مستخدم مع كلمة مرور","سؤالان سريان"],
+            answer:1
+          },
+          {
+            question:"تقنية تضيف عناصر رقمية إلى المشهد الحقيقي الذي يراه المستخدم تُسمى:",
+            options:["الواقع الافتراضي","الواقع المعزز","الحوسبة السحابية","إنترنت الأشياء"],
+            answer:1
+          },
+          {
+            question:"الإجهاد الناتج عن الاستخدام الزائد أو المستمر للتكنولوجيا يُعرف باسم:",
+            options:["الأمن السيبراني","الفجوة الرقمية","الضغط التقني Technostress","التعلم الإلكتروني"],
+            answer:2
+          },
+          {
+            question:"في تقنية Circuit Switching يتم:",
+            options:["إرسال كل جزء عبر مسار مختلف","تخصيص مسار اتصال ثابت طوال الجلسة","حذف العنوان من الرسالة","تخزين البيانات دون إرسالها"],
+            answer:1
+          },
+          {
+            question:"في شبكات Packet Switching يتم:",
+            options:["حجز خط ثابت دائمًا","تقسيم البيانات إلى حزم صغيرة","منع مشاركة الشبكة","تحويل البيانات إلى صور فقط"],
+            answer:1
+          },
+          {
+            question:"يتكون البايت الواحد من:",
+            options:["2 بت","4 بت","8 بت","16 بت"],
+            answer:2
+          },
+          {
+            question:"العدد العشري 10 يساوي بالنظام الثنائي:",
+            options:["1001","1010","1100","1110"],
+            answer:1
+          },
+          {
+            question:"أي مكوّن في الحاسب ينفذ التعليمات ويعالج البيانات؟",
+            options:["وحدة المعالجة المركزية CPU","لوحة المفاتيح","الشاشة","الطابعة"],
+            answer:0
+          },
+          {
+            question:"ناتج العملية المنطقية AND بين 1 و0 يساوي:",
+            options:["0","1","10","غير محدد"],
+            answer:0
+          },
+          {
+            question:"شبكة تربط أجهزة داخل مبنى مدرسة واحد تُعد غالبًا:",
+            options:["WAN","LAN","PAN","MAN"],
+            answer:1
+          },
+          {
+            question:"الجهاز المسؤول عن توجيه البيانات بين شبكات مختلفة هو:",
+            options:["Switch","Router","Printer","Scanner"],
+            answer:1
+          },
+          {
+            question:"الصف الواحد داخل جدول قاعدة البيانات يُسمى:",
+            options:["حقل Field","سجل Record","استعلام Query","نموذج Form"],
+            answer:1
+          },
+          {
+            question:"الحقل الذي يميز كل سجل بصورة فريدة داخل الجدول هو:",
+            options:["الحقل النصي","المفتاح الخارجي","المفتاح الأساسي","اسم الجدول"],
+            answer:2
+          },
+          {
+            question:"عندما تزداد قيمة التباين Variance في مجموعة بيانات، فهذا يعني أن:",
+            options:["القيم أصبحت متساوية","تشتت القيم ازداد","عدد القيم انخفض","المتوسط أصبح صفرًا"],
+            answer:1
+          },
+          {
+            question:"وجود ارتباط موجب بين ساعات المذاكرة والدرجات يعني غالبًا أن:",
+            options:["زيادة أحدهما تقابل انخفاض الآخر","كليهما يميل إلى الزيادة معًا","لا توجد علاقة بينهما","كل القيم متساوية"],
+            answer:1
+          },
+          {
+            question:"النموذج Model هو:",
+            options:["نسخة مطابقة لكل تفاصيل الواقع","تمثيل مبسط لنظام أو موقف حقيقي","نوع من كلمات المرور","جهاز لتخزين الملفات"],
+            answer:1
+          },
+          {
+            question:"إذا كان وصول العملاء إلى طابور أسرع من سرعة خدمتهم لفترة طويلة، فإن:",
+            options:["الطابور يختفي","طول الطابور يزداد","زمن الانتظار يصبح صفرًا","الخدمة تتوقف تلقائيًا"],
+            answer:1
+          },
+          {
+            question:"الخوارزمية هي:",
+            options:["صورة رقمية","مجموعة خطوات مرتبة لحل مشكلة","نوع من الشبكات","قاعدة بيانات كبيرة"],
+            answer:1
+          },
+          {
+            question:"ما ناتج جمع الأعداد من 1 إلى 3 داخل تكرار برمجي؟",
+            options:["3","5","6","9"],
+            answer:2
+          },
+          {
+            question:"الذكاء الاصطناعي التوليدي Generative AI يُستخدم أساسًا في:",
+            options:["إنشاء محتوى جديد","زيادة حجم الشاشة","توصيل كابلات الشبكة","إلغاء قواعد البيانات"],
+            answer:0
+          },
+          {
+            question:"أي لغة تُستخدم غالبًا لإضافة التفاعل إلى صفحات الويب؟",
+            options:["HTML","CSS","JavaScript","SQL"],
+            answer:2
+          }
+        ]
+      },
+
+      en: {
+        questions: [
+          {
+            question:"Student grades as originally recorded before analysis are an example of:",
+            options:["Data","Information","A program","A network"],
+            answer:0
+          },
+          {
+            question:"What is the most important action before publishing information online?",
+            options:["Share it quickly","Change the font color","Verify its accuracy and source","Remove the author's name"],
+            answer:2
+          },
+          {
+            question:"Which of the following is a biometric authentication method?",
+            options:["Password","Fingerprint","Username","PIN"],
+            answer:1
+          },
+          {
+            question:"Which legal protection is most suitable for a new technical invention?",
+            options:["Copyright","Trademark","Patent","Digital privacy"],
+            answer:2
+          },
+          {
+            question:"Which information-security principle means that a service remains accessible when needed?",
+            options:["Confidentiality","Integrity","Availability","Encryption"],
+            answer:2
+          },
+          {
+            question:"Which option is the best example of multi-factor authentication?",
+            options:["Two different passwords","A password and a fingerprint","A username and a password","Two security questions"],
+            answer:1
+          },
+          {
+            question:"A technology that adds digital elements to the real scene viewed by the user is called:",
+            options:["Virtual Reality","Augmented Reality","Cloud Computing","Internet of Things"],
+            answer:1
+          },
+          {
+            question:"Stress caused by excessive or continuous use of technology is known as:",
+            options:["Cybersecurity","Digital divide","Technostress","E-learning"],
+            answer:2
+          },
+          {
+            question:"In Circuit Switching:",
+            options:["Each part is sent through a different path","A fixed communication path is reserved for the whole session","The address is removed from the message","Data is stored without being sent"],
+            answer:1
+          },
+          {
+            question:"In Packet Switching networks:",
+            options:["A fixed line is always reserved","Data is divided into small packets","Network sharing is prevented","Data is converted only into images"],
+            answer:1
+          },
+          {
+            question:"One byte consists of:",
+            options:["2 bits","4 bits","8 bits","16 bits"],
+            answer:2
+          },
+          {
+            question:"The decimal number 10 is equal to which binary number?",
+            options:["1001","1010","1100","1110"],
+            answer:1
+          },
+          {
+            question:"Which computer component executes instructions and processes data?",
+            options:["Central Processing Unit (CPU)","Keyboard","Monitor","Printer"],
+            answer:0
+          },
+          {
+            question:"What is the result of the logical AND operation between 1 and 0?",
+            options:["0","1","10","Undefined"],
+            answer:0
+          },
+          {
+            question:"A network that connects devices inside one school building is usually a:",
+            options:["WAN","LAN","PAN","MAN"],
+            answer:1
+          },
+          {
+            question:"Which device routes data between different networks?",
+            options:["Switch","Router","Printer","Scanner"],
+            answer:1
+          },
+          {
+            question:"A single row in a database table is called a:",
+            options:["Field","Record","Query","Form"],
+            answer:1
+          },
+          {
+            question:"Which field uniquely identifies every record in a table?",
+            options:["Text field","Foreign key","Primary key","Table name"],
+            answer:2
+          },
+          {
+            question:"When the variance of a dataset increases, this means that:",
+            options:["The values have become equal","The spread of the values has increased","The number of values has decreased","The mean has become zero"],
+            answer:1
+          },
+          {
+            question:"A positive correlation between study hours and grades usually means that:",
+            options:["One increases while the other decreases","Both tend to increase together","There is no relationship","All values are equal"],
+            answer:1
+          },
+          {
+            question:"A model is:",
+            options:["An exact copy of every real-world detail","A simplified representation of a real system or situation","A type of password","A device for storing files"],
+            answer:1
+          },
+          {
+            question:"If customers arrive at a queue faster than they are served for a long period, then:",
+            options:["The queue disappears","The queue becomes longer","Waiting time becomes zero","The service stops automatically"],
+            answer:1
+          },
+          {
+            question:"An algorithm is:",
+            options:["A digital image","An ordered set of steps for solving a problem","A type of network","A large database"],
+            answer:1
+          },
+          {
+            question:"What is the result of adding the numbers from 1 to 3 in a programming loop?",
+            options:["3","5","6","9"],
+            answer:2
+          },
+          {
+            question:"Generative AI is mainly used to:",
+            options:["Create new content","Increase screen size","Connect network cables","Remove databases"],
+            answer:0
+          },
+          {
+            question:"Which language is commonly used to add interactivity to web pages?",
+            options:["HTML","CSS","JavaScript","SQL"],
+            answer:2
+          }
+        ]
+      }
+    };
+
+    const testStorageKeys = {
+      ar:"atcPlacementTestArabicV2",
+      en:"atcPlacementTestEnglishV2"
+    };
+
+    const testStates = {
+      ar:createEmptyTestState("ar"),
+      en:createEmptyTestState("en")
+    };
+
+    function createEmptyTestState(language) {
+      return {
+        current:0,
+        answers:Array(placementTests[language].questions.length).fill(null),
+        started:false,
+        completed:false,
+        score:null,
+        level:""
+      };
+    }
+
+    function getCurrentTestLanguage() {
+      return userData.language === "en" ? "en" : "ar";
+    }
+
+    function getCurrentTestState() {
+      return testStates[getCurrentTestLanguage()];
+    }
+
+    function getCurrentQuestions() {
+      return placementTests[getCurrentTestLanguage()].questions;
+    }
+
+    function usesEnglishInterface() {
+      return userData.role === "student" && getCurrentTestLanguage() === "en";
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function savePlacementTestState(language) {
+      const state = testStates[language];
+      try {
+        localStorage.setItem(testStorageKeys[language], JSON.stringify(state));
+      } catch (error) {
+        // The test continues to work if local storage is unavailable.
+      }
+    }
+
+    function restorePlacementTests() {
+      ["ar","en"].forEach(language => {
+        try {
+          const questions = placementTests[language].questions;
+          const saved = JSON.parse(localStorage.getItem(testStorageKeys[language]) || "null");
+
+          if (!saved || !Array.isArray(saved.answers) || saved.answers.length !== questions.length) return;
+
+          testStates[language] = {
+            current:Math.min(
+              Math.max(Number.isInteger(saved.current) ? saved.current : 0,0),
+              questions.length - 1
+            ),
+            answers:saved.answers.map(answer =>
+              Number.isInteger(answer) && answer >= 0 && answer <= 3 ? answer : null
+            ),
+            started:Boolean(saved.started),
+            completed:Boolean(saved.completed),
+            score:Number.isInteger(saved.score) ? saved.score : null,
+            level:typeof saved.level === "string" ? saved.level : ""
+          };
+        } catch (error) {
+          testStates[language] = createEmptyTestState(language);
+        }
+      });
+    }
+
+     function getTestLevel(score, englishOutput) {
+      if (score <= 9) {
+        return englishOutput
+          ? {
+              title: "Needs comprehensive foundation",
+              message:
+                "The result shows significant gaps in several essential first-year concepts. A structured foundation program is strongly recommended before beginning the second-year track."
+            }
+          : {
+              title: "يحتاج إلى تأسيس شامل",
+              message:
+                "تشير النتيجة إلى وجود فجوات واضحة في عدد من أساسيات الصف الأول، ويحتاج الطالب إلى تأسيس منظم قبل بدء دراسة المسار في الصف الثاني."
+            };
+      }
+
+      if (score <= 17) {
+        return englishOutput
+          ? {
+              title: "Needs additional foundation",
+              message:
+                "The student has some prior knowledge, but several important concepts still need reinforcement before starting the second-year track."
+            }
+          : {
+              title: "يحتاج إلى استكمال التأسيس",
+              message:
+                "يمتلك الطالب بعض المعلومات الأساسية، لكنه يحتاج إلى استكمال عدد من المفاهيم قبل بدء دراسة المسار."
+            };
+      }
+
+      if (score <= 21) {
+        return englishOutput
+          ? {
+              title: "Good foundation level",
+              message:
+                "The student has a good foundation, with a few specific areas that should be reviewed before beginning the second-year track. Joining the program may be useful, but it is not essential."
+            }
+          : {
+              title: "مستوى جيد في الأساسيات",
+              message:
+                "يمتلك الطالب أساسًا جيدًا، مع وجود بعض النقاط المحددة التي تحتاج إلى مراجعة. ويمكن الاستفادة من البرنامج، لكنه ليس ضرورة."
+            };
+      }
+
+      if (score <= 24) {
+        return englishOutput
+          ? {
+              title: "Very good foundation level",
+              message:
+                "The student demonstrates a very good understanding of the key first-year concepts and is ready to begin the second-year track. The program is optional and may be useful only for enrichment, practical application, and early preparation."
+            }
+          : {
+              title: "مستوى جيد جدًا في الأساسيات",
+              message:
+                "يظهر الطالب فهمًا جيدًا جدًا لأهم مفاهيم الصف الأول، وهو مستعد لبدء مسار الصف الثاني. الالتحاق بالبرنامج اختياري للإثراء والتطبيق العملي."
+            };
+      }
+
+      return englishOutput
+        ? {
+            title: "Excellent foundation level",
+            message:
+              "The student has an excellent command of the key first-year concepts and is fully prepared to begin the second-year track. A foundation program is not required."
+          }
+        : {
+            title: "مستوى ممتاز في الأساسيات",
+            message:
+              "يمتلك الطالب إتقانًا ممتازًا لأهم مفاهيم الصف الأول، وهو مستعد بقوة لبدء مسار الصف الثاني، ولا يحتاج إلى برنامج تأسيسي."
+          };
+    }
+
+    function renderTestView() {
+      const container = document.getElementById("testDynamic");
+      if (!container) return;
+
+      const language = getCurrentTestLanguage();
+      const state = testStates[language];
+
+      if (state.completed && Number.isInteger(state.score)) {
+        renderTestResult();
+        return;
+      }
+
+      if (state.started) {
+        renderTestQuestion();
+        return;
+      }
+
+      const isParent = userData.role === "parent";
+      const englishUI = usesEnglishInterface();
+      const isEnglishTest = language === "en";
+      const hasProgress = state.answers.some(answer => answer !== null);
+
+      if (englishUI) {
+        container.setAttribute("dir","ltr");
+        container.innerHTML = `
+          <div class="test-intro">
+            <div class="icon gold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M7 3h10v3H7z"/>
+                <path d="M5 5h14v16H5z"/>
+                <path d="M8 10h8M8 14h5M8 18h4"/>
+              </svg>
+            </div>
+            <h2>Placement Test</h2>
+            <p>A short diagnostic test that measures your level in the key foundations related to programming and artificial intelligence.</p>
+
+            <div class="test-facts">
+              <div class="test-fact"><strong>26</strong><span>Multiple-choice questions</span></div>
+              <div class="test-fact"><strong>One question</strong><span>Displayed on each screen</span></div>
+              <div class="test-fact"><strong>Instant result</strong><span>With a foundation-level assessment</span></div>
+            </div>
+
+            <div class="note">The questions are based on the content of the First-Year Baccalaureate curriculum.</div>
+
+            <div class="ctas">
+              <button class="btn primary" type="button" onclick="startPlacementTest()">${hasProgress ? "Continue Test" : "Start Test"}</button>
+              <button class="btn secondary" type="button" onclick="backToMenu()">Back to Menu</button>
+            </div>
+          </div>`;
+        return;
+      }
+
+      container.setAttribute("dir","rtl");
+      container.innerHTML = `
+        <div class="test-intro">
+          <div class="icon gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M7 3h10v3H7z"/>
+              <path d="M5 5h14v16H5z"/>
+              <path d="M8 10h8M8 14h5M8 18h4"/>
+            </svg>
+          </div>
+          <h2>${isParent
+            ? (isEnglishTest ? "اختبار مستوى الطالب باللغة الإنجليزية" : "اختبار مستوى الطالب")
+            : "اختبار تحديد المستوى"}</h2>
+          <p>${isParent
+            ? (isEnglishTest
+                ? "اختبار تشخيصي باللغة الإنجليزية لقياس مستوى الطالب في أهم الأساسيات المرتبطة بمسار البرمجة والذكاء الاصطناعي."
+                : "اختبار تشخيصي لقياس مستوى الطالب في أهم الأساسيات المرتبطة بمسار البرمجة والذكاء الاصطناعي.")
+            : "اختبار تشخيصي  يساعدك على معرفة مستواك في أهم الأساسيات المرتبطة بمسار البرمجة والذكاء الاصطناعي."}</p>
+
+          <div class="test-facts">
+            <div class="test-fact"><strong>26</strong><span>سؤال اختيار من متعدد</span></div>
+            <div class="test-fact"><strong>سؤال واحد</strong><span>يظهر في كل شاشة</span></div>
+            <div class="test-fact"><strong>نتيجة فورية</strong><span>مع تحديد مستوى الأساسيات</span></div>
+          </div>
+
+          <div class="note">${isEnglishTest
+            ? "الاختبار باللغة الإنجليزية، وأسئلته مبنية على محتوى منهج الصف الأول بكالوريا."
+            : "أسئلة الاختبار مبنية على محتوى منهج الصف الأول بكالوريا."}</div>
+
+          <div class="ctas">
+            <button class="btn primary" type="button" onclick="startPlacementTest()">${hasProgress ? "متابعة الاختبار" : "ابدأ الاختبار"}</button>
+            <button class="btn secondary" type="button" onclick="backToMenu()">العودة للقائمة</button>
+          </div>
+        </div>`;
+    }
+
+    function startPlacementTest() {
+      const language = getCurrentTestLanguage();
+      const state = testStates[language];
+
+      state.started = true;
+      state.completed = false;
+      state.score = null;
+      state.level = "";
+
+      const firstUnanswered = state.answers.findIndex(answer => answer === null);
+      state.current = firstUnanswered === -1 ? 0 : firstUnanswered;
+
+      userData.testScore = null;
+      userData.testLevel = "";
+
+      savePlacementTestState(language);
+      renderTestQuestion();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+
+    function renderTestQuestion() {
+      const container = document.getElementById("testDynamic");
+      if (!container) return;
+
+      const language = getCurrentTestLanguage();
+      const state = testStates[language];
+      const questions = placementTests[language].questions;
+      const question = questions[state.current];
+      const selected = state.answers[state.current];
+      const answeredCount = state.answers.filter(answer => answer !== null).length;
+      const progress = ((state.current + 1) / questions.length) * 100;
+      const englishUI = usesEnglishInterface();
+      const letters = language === "en" ? ["A","B","C","D"] : ["أ","ب","ج","د"];
+
+      container.setAttribute("dir",language === "en" ? "ltr" : "rtl");
+
+      const progressText = englishUI
+        ? {
+            question:`Question ${state.current + 1} of ${questions.length}`,
+            answered:`${answeredCount} answered`,
+            choose:"Choose one answer",
+            previous:"Previous Question",
+            exit:"Save and Exit",
+            next:"Next Question",
+            result:"View Result"
+          }
+        : {
+            question:`السؤال ${state.current + 1} من ${questions.length}`,
+            answered:`تمت الإجابة عن ${answeredCount} سؤالًا`,
+            choose:language === "en" ? "اختر إجابة واحدة" : "اختر إجابة واحدة",
+            previous:"السؤال السابق",
+            exit:"حفظ والخروج",
+            next:"السؤال التالي",
+            result:"عرض النتيجة"
+          };
+
+      container.innerHTML = `
+        <div class="test-progress-head">
+          <span>${progressText.question}</span>
+          <span>${progressText.answered}</span>
+        </div>
+        <div class="test-progress-track" aria-label="${englishUI ? "Test progress" : "تقدم الاختبار"}">
+          <div class="test-progress-bar" style="width:${progress}%"></div>
+        </div>
+
+        <div class="test-question-card">
+          <div class="test-question-number">${progressText.choose}</div>
+          <h2 class="test-question-text">${escapeHtml(question.question)}</h2>
+          <div class="test-options">
+            ${question.options.map((option,index) => `
+              <button
+                class="test-option ${selected === index ? "selected" : ""}"
+                type="button"
+                onclick="selectPlacementAnswer(${index})"
+                aria-pressed="${selected === index ? "true" : "false"}">
+                <span class="test-option-letter">${letters[index]}</span>
+                <span>${escapeHtml(option)}</span>
+              </button>
+            `).join("")}
+          </div>
+        </div>
+
+        <div class="test-nav">
+          <div class="test-nav-group">
+            <button class="btn secondary" type="button" onclick="previousPlacementQuestion()" ${state.current === 0 ? "disabled" : ""}>${progressText.previous}</button>
+            <button class="btn secondary" type="button" onclick="backToMenu()">${progressText.exit}</button>
+          </div>
+          <button class="btn primary" type="button" onclick="nextPlacementQuestion()" ${selected === null ? "disabled" : ""}>
+            ${state.current === questions.length - 1 ? progressText.result : progressText.next}
+          </button>
+        </div>`;
+    }
+
+    function selectPlacementAnswer(optionIndex) {
+      if (!Number.isInteger(optionIndex) || optionIndex < 0 || optionIndex > 3) return;
+
+      const language = getCurrentTestLanguage();
+      const state = testStates[language];
+
+      state.answers[state.current] = optionIndex;
+      savePlacementTestState(language);
+      renderTestQuestion();
+    }
+
+    function previousPlacementQuestion() {
+      const language = getCurrentTestLanguage();
+      const state = testStates[language];
+
+      if (state.current <= 0) return;
+
+      state.current -= 1;
+      savePlacementTestState(language);
+      renderTestQuestion();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+
+    function nextPlacementQuestion() {
+      const language = getCurrentTestLanguage();
+      const state = testStates[language];
+      const questions = placementTests[language].questions;
+
+      if (state.answers[state.current] === null) return;
+
+      if (state.current < questions.length - 1) {
+        state.current += 1;
+        savePlacementTestState(language);
+        renderTestQuestion();
+        window.scrollTo({top:0,behavior:"smooth"});
+        return;
+      }
+
+      finishPlacementTest();
+    }
+
+    function finishPlacementTest() {
+      const language = getCurrentTestLanguage();
+      const state = testStates[language];
+      const questions = placementTests[language].questions;
+      const firstUnanswered = state.answers.findIndex(answer => answer === null);
+
+      if (firstUnanswered !== -1) {
+        state.current = firstUnanswered;
+        renderTestQuestion();
+        return;
+      }
+
+      const score = state.answers.reduce(
+        (total,answer,index) => total + (answer === questions[index].answer ? 1 : 0),
+        0
+      );
+      const englishUI = usesEnglishInterface();
+      const level = getTestLevel(score,englishUI);
+
+      state.completed = true;
+      state.started = false;
+      state.score = score;
+      state.level = level.title;
+
+      userData.testScore = score;
+      userData.testLevel = level.title;
+
+      savePlacementTestState(language);
+      renderTestResult();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+
+    function renderTestResult() {
+      const container = document.getElementById("testDynamic");
+      if (!container) return;
+
+      const language = getCurrentTestLanguage();
+      const state = testStates[language];
+      const questions = placementTests[language].questions;
+      const englishUI = usesEnglishInterface();
+      const isParent = userData.role === "parent";
+      const level = getTestLevel(state.score,englishUI);
+      const angle = (state.score / questions.length) * 360;
+
+      container.setAttribute("dir",englishUI ? "ltr" : "rtl");
+
+      container.innerHTML = `
+        <div class="test-result">
+          <div class="score-orb" style="--score-angle:${angle}deg">
+            <div>
+              <strong>${state.score}</strong>
+              <span>${englishUI ? `out of ${questions.length}` : `من ${questions.length}`}</span>
+            </div>
+          </div>
+
+          <h2>${englishUI
+            ? "Placement Test Result"
+            : (isParent
+                ? (language === "en" ? "نتيجة اختبار مستوى الطالب باللغة الإنجليزية" : "نتيجة اختبار مستوى الطالب")
+                : "نتيجة اختبار تحديد المستوى")}</h2>
+
+          <div class="result-level">${escapeHtml(level.title)}</div>
+          <p class="result-copy">${escapeHtml(level.message)}</p>
+
+              <div class="result-note">
+                ${escapeHtml(level.recommendation)}
+              </div>
+
+          <div class="result-note">${englishUI
+            ? "This is a diagnostic result, not a pass-or-fail grade. The questions are based on the First-Year Baccalaureate curriculum."
+            : (language === "en"
+                ? "هذه نتيجة تشخيصية وليست نجاحًا أو رسوبًا. الاختبار باللغة الإنجليزية وأسئلته مبنية على محتوى منهج الصف الأول بكالوريا."
+                : "هذه نتيجة تشخيصية وليست نجاحًا أو رسوبًا. أسئلة الاختبار مبنية على محتوى منهج الصف الأول بكالوريا.")}</div>
+
+          <div class="ctas">
+            <button class="btn primary" type="button" onclick="openRoute('booking')">${englishUI ? "Start Registration" : (isParent ? "ابدأ حجز الطالب" : "ابدأ الحجز")}</button>
+            <button class="btn goldbtn" type="button" onclick="resetPlacementTest()">${englishUI ? "Retake Test" : "إعادة الاختبار"}</button>
+            <button class="btn secondary" type="button" onclick="backToMenu()">${englishUI ? "Back to Menu" : "العودة للقائمة"}</button>
+          </div>
+        </div>`;
+    }
+
+    function resetPlacementTest() {
+      const language = getCurrentTestLanguage();
+
+      testStates[language] = createEmptyTestState(language);
+      userData.testScore = null;
+      userData.testLevel = "";
+
+      try {
+        localStorage.removeItem(testStorageKeys[language]);
+      } catch (error) {
+        // The test continues to work if local storage is unavailable.
+      }
+
+      renderTestView();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+
+
+    const bookingConfig = {
+      endpoint:"https://script.google.com/macros/s/AKfycbwwq-8YjqKNxDqn1Skof5fRH4w0x6EZUw-dUA7r4VxynBPgGfKxbUVJWWB5SGliBppnbg/exec",
+      fee:500,
+      currency:"EGP",
+      programStart:"15 أغسطس 2026",
+      bookingDeadline:"31 يوليو 2026",
+      paymentMethods:[
+        {
+          id:"instapay",
+          labelAr:"InstaPay",
+          labelEn:"InstaPay",
+          detailsAr:"الدفع من خلال تطبيق InstaPay",
+          detailsEn:"Select it, then transfer from the InstaPay app",
+          number:"01016768438",
+          instructionStepsAr:[
+            "فتح تطبيق InstaPay.",
+            "اختيار التحويل إلى رقم هاتف.",
+            "إدخال الرقم الموضح والتأكد من اسم المستفيد قبل تأكيد التحويل.",
+            "يمكن كتابة اسم الطالب في خانة الملاحظات إن ظهرت."
+          ],
+          instructionStepsEn:[
+            "Open the InstaPay app.",
+            "Choose transfer to a mobile number.",
+            "Enter the number shown and verify the beneficiary name before confirming.",
+            "The student name may be added in the transfer note if that field appears."
+          ],
+          enabled:true
+        },
+        {
+          id:"wallet",
+          labelAr:"Vodafone Cash",
+          labelEn:"Vodafone Cash",
+          detailsAr:"الدفع من خلال Vodafone Cash",
+          detailsEn:"Select it, then transfer using Vodafone Cash",
+          number:"01016768438",
+          instructionStepsAr:[
+            "فتح خدمة Vodafone Cash.",
+            "تحويل المبلغ المطلوب إلى رقم المحفظة الموضح.",
+            "الاحتفاظ برسالة نجاح العملية أو التقاط صورة واضحة للشاشة.",
+            "لا يلزم كتابة اسم الطالب داخل عملية التحويل."
+          ],
+          instructionStepsEn:[
+            "Open Vodafone Cash.",
+            "Transfer the required amount to the wallet number shown.",
+            "Keep the success message or take a clear screenshot.",
+            "The student name does not need to be entered in the transfer."
+          ],
+          enabled:true
+        }
+      ]
+    };
+
+    const bookingState = {
+      step:1,
+      submitting:false,
+      receipt:null,
+      receiptName:"",
+      receiptType:"",
+      confirmation:null,
+      error:""
+    };
+
+    function bookingUsesEnglish() {
+      return userData.role === "student" && userData.language === "en";
+    }
+
+    function bookingTrackLabel(english=false) {
+      if (userData.language === "en") return english ? "English track" : "لغات";
+      return english ? "Arabic track" : "عربي";
+    }
+
+    function getBookingTestSnapshot() {
+      const language = getCurrentTestLanguage();
+      const state = testStates[language];
+      const total = placementTests[language].questions.length;
+
+      if (!state || !state.completed || !Number.isInteger(state.score)) {
+        return {
+          taken:false,
+          language,
+          score:null,
+          total,
+          level:""
+        };
+      }
+
+      return {
+        taken:true,
+        language,
+        score:state.score,
+        total,
+        level:state.level || getTestLevel(state.score,bookingUsesEnglish()).title
+      };
+    }
+
+    function emptyBookingDraft() {
+      const saved = userData.bookingDraft || {};
+      return {
+        studentName:saved.studentName || "",
+        studentPhone:saved.studentPhone || "",
+        guardianName:saved.guardianName || "",
+        guardianPhone:saved.guardianPhone || "",
+        email:saved.email || "",
+        governorate:saved.governorate || "",
+        schoolName:saved.schoolName || "",
+        notes:saved.notes || "",
+        paymentMethod:saved.paymentMethod || "instapay"
+      };
+    }
+
+    function bookingCopy() {
+      const en = bookingUsesEnglish();
+      return en ? {
+        title:"Registration and Payment",
+        subtitle:"Enter the student and guardian details, then attach the payment proof to submit the registration request.",
+        steps:["Student Details","Payment","Confirmation"],
+        studentSection:"Student Details",
+        studentSub:"Only the data needed to organize the group and contact the family is collected.",
+        guardianSection:"Parent / Guardian Details",
+        guardianSub:"A guardian phone number is required for follow-up and booking verification.",
+        studentName:"Student full name",
+        studentPhone:"Student phone number",
+        guardianName:"Parent / guardian full name",
+        guardianPhone:"Parent / guardian phone / WhatsApp",
+        email:"Email (optional)",
+        governorate:"Governorate",
+        schoolName:"School name (optional)",
+        track:"School track",
+        grade:"Grade",
+        gradeValue:"Second Year Baccalaureate",
+        notes:"Notes (optional)",
+        required:"Required",
+        next:"Continue to Payment",
+        back:"Back to Menu",
+        paymentTitle:"Payment Details",
+        paymentSub:"Review the registration data and complete the program fee payment.",
+        fee:"Program fee",
+        start:"Program start",
+        deadline:"Registration deadline",
+        method:"Choose payment method",
+        paymentTarget:"ATC Academy payment number",
+        paymentAmount:"Required amount",
+        copyNumber:"Copy number",
+        copied:"Copied",
+        receipt:"Payment proof",
+        uploadReceipt:"Attach payment proof",
+        noReceiptSelected:"No file selected",
+        receiptHelp:"Upload a clear JPG, PNG, or PDF file up to 4 MB.",
+        submit:"Submit Registration",
+        edit:"Edit Details",
+        summary:"Registration Summary",
+        role:"Submitted by",
+        roleStudent:"Student",
+        roleParent:"Parent / Guardian",
+        test:"Placement test",
+        testNotTaken:"Not completed",
+        testTaken:(s,t,l)=>`${s} out of ${t} — ${l}`,
+        receiptSelected:"Selected file",
+        configError:"The live Google Sheets connection has not been configured yet. Add the deployed Apps Script URL in bookingConfig.endpoint.",
+        paymentConfigError:"Payment account details must be added before publishing the page.",
+        requiredError:"Complete all required fields before continuing.",
+        receiptError:"Attach the payment proof before submitting.",
+        fileError:"The file must be JPG, PNG, or PDF and no larger than 4 MB.",
+        sending:"Submitting...",
+        confirmed:"Registration Request Received",
+        confirmedText:"The request has been saved successfully. Keep the booking reference below.",
+        pending:"The booking is pending payment verification. Final confirmation is issued after the transfer is reviewed.",
+        reference:"Booking reference",
+        home:"Return to Main Menu",
+        retry:"Try Again"
+      } : {
+        title:"الحجز والدفع",
+        subtitle:"سجّل بيانات الطالب وولي الأمر، ثم أرفق إثبات الدفع لإرسال طلب الحجز.",
+        steps:["بيانات الطالب","الدفع","التأكيد"],
+        studentSection:"بيانات الطالب",
+        studentSub:"يتم جمع البيانات اللازمة فقط لتنظيم المجموعة والتواصل مع الأسرة.",
+        guardianSection:"بيانات ولي الأمر",
+        guardianSub:"رقم ولي الأمر مطلوب للمتابعة ومراجعة الحجز.",
+        studentName:"اسم الطالب رباعيًا",
+        studentPhone:"رقم هاتف الطالب",
+        guardianName:"اسم ولي الأمر",
+        guardianPhone:"رقم ولي الأمر / واتساب",
+        email:"البريد الإلكتروني — اختياري",
+        governorate:"المحافظة",
+        schoolName:"اسم المدرسة — اختياري",
+        track:"لغة الدراسة",
+        grade:"الصف الدراسي",
+        gradeValue:"الصف الثاني بكالوريا",
+        notes:"ملاحظات — اختياري",
+        required:"مطلوب",
+        next:"التالي: الدفع",
+        back:"العودة للقائمة",
+        paymentTitle:"بيانات الدفع",
+        paymentSub:"مراجعة بيانات الحجز ثم استكمال سداد رسوم البرنامج.",
+        fee:"رسوم البرنامج",
+        start:"بداية البرنامج",
+        deadline:"آخر موعد للحجز",
+        method:"اختيار طريقة الدفع",
+        paymentTarget:"رقم الدفع الخاص بـ ATC Academy",
+        paymentAmount:"المبلغ المطلوب تحويله",
+        copyNumber:"نسخ الرقم",
+        copied:"تم النسخ",
+        receipt:"إثبات الدفع",
+        uploadReceipt:"إرفاق صورة إثبات الدفع",
+        noReceiptSelected:"لم يتم اختيار ملف",
+        receiptHelp:"يُرجى إرفاق صورة واضحة بصيغة JPG أو PNG، أو ملف PDF، بحد أقصى 4 ميجابايت.",
+        submit:"إرسال طلب الحجز",
+        edit:"تعديل البيانات",
+        summary:"ملخص الحجز",
+        role:"مقدم الطلب",
+        roleStudent:"الطالب",
+        roleParent:"ولي الأمر",
+        test:"نتيجة الاختبار",
+        testNotTaken:"لم يتم إجراء الاختبار",
+        testTaken:(s,t,l)=>`${s} من ${t} — ${l}`,
+        receiptSelected:"تم اختيار الملف",
+        configError:"لم يتم تفعيل الاتصال المباشر بجوجل شيت بعد. يجب إضافة رابط Google Apps Script المنشور داخل bookingConfig.endpoint.",
+        paymentConfigError:"يجب إدخال بيانات حساب الدفع قبل نشر الصفحة.",
+        requiredError:"يجب استكمال جميع البيانات المطلوبة قبل المتابعة.",
+        receiptError:"يجب إرفاق إثبات الدفع قبل إرسال الطلب.",
+        fileError:"يجب أن يكون الملف JPG أو PNG أو PDF وألا يتجاوز 4 ميجابايت.",
+        sending:"جارٍ الإرسال...",
+        confirmed:"تم استلام طلب الحجز",
+        confirmedText:"تم حفظ الطلب بنجاح. يُرجى الاحتفاظ برقم الحجز الموضح أدناه.",
+        pending:"الحجز في انتظار مراجعة إثبات الدفع، ويصدر التأكيد النهائي بعد التحقق من التحويل.",
+        reference:"رقم الحجز",
+        home:"العودة للقائمة الرئيسية",
+        retry:"إعادة المحاولة"
+      };
+    }
+
+    function bookingProgress(copy) {
+      return `<div class="booking-progress">
+        ${copy.steps.map((label,index) => {
+          const number = index + 1;
+          const stateClass = bookingState.step === number ? "active" : (bookingState.step > number ? "done" : "");
+          return `<div class="booking-progress-item ${stateClass}">${number}. ${escapeHtml(label)}</div>`;
+        }).join("")}
+      </div>`;
+    }
+
+    function renderBookingView() {
+      const container = document.getElementById("bookingDynamic");
+      if (!container) return;
+
+      const copy = bookingCopy();
+      const en = bookingUsesEnglish();
+      container.setAttribute("dir",en ? "ltr" : "rtl");
+
+      if (bookingState.step === 3 && bookingState.confirmation) {
+        renderBookingConfirmation(container,copy);
+        return;
+      }
+
+      const head = `<div class="booking-head">
+        <div class="icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h3"/><path d="M14 17l1.5 1.5L19 15"/>
+          </svg>
+        </div>
+        <h2>${copy.title}</h2>
+        <p>${copy.subtitle}</p>
+      </div>`;
+
+      container.innerHTML = head + bookingProgress(copy) + `<div id="bookingStageContainer"></div>`;
+      if (bookingState.step === 1) renderBookingDataStage(copy);
+      else renderBookingPaymentStage(copy);
+    }
+
+    function renderBookingDataStage(copy) {
+      const stage = document.getElementById("bookingStageContainer");
+      const draft = emptyBookingDraft();
+      const test = getBookingTestSnapshot();
+      const en = bookingUsesEnglish();
+      const roleText = userData.role === "parent" ? copy.roleParent : copy.roleStudent;
+      const testText = test.taken ? copy.testTaken(test.score,test.total,test.level) : copy.testNotTaken;
+
+      stage.innerHTML = `<div class="booking-stage active">
+        ${bookingState.error ? `<div class="booking-error">${escapeHtml(bookingState.error)}</div>` : ""}
+
+        <div class="booking-info-strip">
+          <div class="booking-info-box"><strong>${escapeHtml(bookingTrackLabel(en))}</strong><span>${copy.track}</span></div>
+          <div class="booking-info-box"><strong>${copy.gradeValue}</strong><span>${copy.grade}</span></div>
+          <div class="booking-info-box"><strong>${escapeHtml(roleText)}</strong><span>${copy.role}</span></div>
+        </div>
+
+        <form id="bookingDataForm" novalidate>
+          <div class="booking-section">
+            <h3 class="booking-section-title">${copy.studentSection}</h3>
+            <p class="booking-section-subtitle">${copy.studentSub}</p>
+            <div class="booking-form-grid">
+              ${bookingField("studentName",copy.studentName,draft.studentName,true,"text",en ? "Student full name" : "الاسم كما سيظهر في سجلات الأكاديمية")}
+              ${bookingField("studentPhone",copy.studentPhone,draft.studentPhone,false,"tel",en ? "Optional if the student has no phone" : "اختياري إذا لم يكن للطالب رقم مستقل")}
+              ${bookingField("governorate",copy.governorate,draft.governorate,true,"text","")}
+              ${bookingField("schoolName",copy.schoolName,draft.schoolName,false,"text","")}
+              ${bookingField("track",copy.track,bookingTrackLabel(en),false,"text","",true)}
+              ${bookingField("grade",copy.grade,copy.gradeValue,false,"text","",true)}
+            </div>
+          </div>
+
+          <div class="booking-section">
+            <h3 class="booking-section-title">${copy.guardianSection}</h3>
+            <p class="booking-section-subtitle">${copy.guardianSub}</p>
+            <div class="booking-form-grid">
+              ${bookingField("guardianName",copy.guardianName,draft.guardianName,true,"text","")}
+              ${bookingField("guardianPhone",copy.guardianPhone,draft.guardianPhone,true,"tel",en ? "Used for WhatsApp follow-up" : "يستخدم للتواصل ومتابعة الحجز")}
+              ${bookingField("email",copy.email,draft.email,false,"email",en ? "Used to send a confirmation when available" : "يستخدم لإرسال نسخة من التأكيد عند توفره")}
+              <div class="booking-field full">
+                <label for="bookingNotes">${copy.notes}</label>
+                <textarea id="bookingNotes" name="notes" maxlength="600">${escapeHtml(draft.notes)}</textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="booking-test-card">
+            <div>
+              <strong>${copy.test}</strong>
+              <p>${escapeHtml(testText)}</p>
+            </div>
+            ${test.taken ? "" : `<button class="btn goldbtn" type="button" onclick="saveBookingDraftFromForm(); openRoute('test')">${en ? "Take Test" : "إجراء الاختبار"}</button>`}
+          </div>
+
+          <div class="booking-actions">
+            <button class="btn secondary" type="button" onclick="saveBookingDraftFromForm(); backToMenu()">${copy.back}</button>
+            <button class="btn primary" type="submit">${copy.next}</button>
+          </div>
+        </form>
+      </div>`;
+
+      document.getElementById("bookingDataForm").addEventListener("submit",event => {
+        event.preventDefault();
+        saveBookingDraftFromForm();
+        const draftNow = userData.bookingDraft;
+        const requiredFields = [
+          { id:"bookingStudentName", value:draftNow.studentName },
+          { id:"bookingGovernorate", value:draftNow.governorate },
+          { id:"bookingGuardianName", value:draftNow.guardianName },
+          { id:"bookingGuardianPhone", value:draftNow.guardianPhone }
+        ];
+        const firstMissing = requiredFields.find(field => !String(field.value || "").trim());
+        const cleanGuardianPhone = String(draftNow.guardianPhone || "").replace(/\D/g,"");
+        const invalidGuardianPhone = !firstMissing && cleanGuardianPhone.length !== 11;
+
+        if (firstMissing || invalidGuardianPhone) {
+          bookingState.error = firstMissing
+            ? copy.requiredError
+            : (bookingUsesEnglish() ? "Enter a valid 11-digit guardian phone number." : "يجب إدخال رقم صحيح لولي الأمر مكوّن من 11 رقمًا.");
+          renderBookingView();
+          requestAnimationFrame(() => {
+            const fieldId = firstMissing ? firstMissing.id : "bookingGuardianPhone";
+            const field = document.getElementById(fieldId);
+            if (field) {
+              field.classList.add("field-invalid");
+              field.focus({preventScroll:true});
+              field.scrollIntoView({behavior:"smooth",block:"center"});
+            }
+            const actions = document.querySelector("#bookingDataForm .booking-actions");
+            if (actions && !actions.querySelector(".booking-inline-error")) {
+              const note = document.createElement("div");
+              note.className = "booking-inline-error";
+              note.textContent = bookingState.error;
+              actions.insertBefore(note,actions.firstChild);
+            }
+          });
+          return;
+        }
+        bookingState.error = "";
+        bookingState.step = 2;
+        renderBookingView();
+        window.scrollTo({top:0,behavior:"smooth"});
+      });
+    }
+
+    function bookingField(name,label,value,required,type,help,readonly=false) {
+      const id = "booking" + name.charAt(0).toUpperCase() + name.slice(1);
+      return `<div class="booking-field">
+        <label for="${id}">${label}${required ? ` <span class="booking-required">*</span>` : ""}</label>
+        <input id="${id}" name="${name}" type="${type}" value="${escapeHtml(value)}" ${required ? "required" : ""} ${readonly ? "readonly" : ""} maxlength="120" autocomplete="${name.includes("Phone") ? "tel" : (name === "email" ? "email" : "off")}">
+        ${help ? `<span class="booking-help">${escapeHtml(help)}</span>` : ""}
+      </div>`;
+    }
+
+    function saveBookingDraftFromForm() {
+      const form = document.getElementById("bookingDataForm");
+      if (!form) return;
+      const fd = new FormData(form);
+      const old = emptyBookingDraft();
+      userData.bookingDraft = {
+        ...old,
+        studentName:String(fd.get("studentName") || "").trim(),
+        studentPhone:String(fd.get("studentPhone") || "").trim(),
+        guardianName:String(fd.get("guardianName") || "").trim(),
+        guardianPhone:String(fd.get("guardianPhone") || "").trim(),
+        email:String(fd.get("email") || "").trim(),
+        governorate:String(fd.get("governorate") || "").trim(),
+        schoolName:String(fd.get("schoolName") || "").trim(),
+        notes:String(fd.get("notes") || "").trim()
+      };
+    }
+
+    function renderPaymentSteps(method,en) {
+      const steps = en ? method.instructionStepsEn : method.instructionStepsAr;
+      if (!Array.isArray(steps) || !steps.length) return "";
+      return `<ol class="payment-steps">${steps.map(step => `<li>${escapeHtml(step)}</li>`).join("")}</ol>`;
+    }
+
+    function renderBookingPaymentStage(copy) {
+      const stage = document.getElementById("bookingStageContainer");
+      const draft = emptyBookingDraft();
+      const test = getBookingTestSnapshot();
+      const en = bookingUsesEnglish();
+      const enabledMethods = bookingConfig.paymentMethods.filter(method => method.enabled);
+      const selectedMethod = enabledMethods.find(method => method.id === draft.paymentMethod) || enabledMethods[0];
+      if (selectedMethod) draft.paymentMethod = selectedMethod.id;
+      userData.bookingDraft = draft;
+
+      const liveEndpoint = bookingConfig.endpoint && !bookingConfig.endpoint.includes("PASTE_");
+      const methodConfigured = selectedMethod && selectedMethod.detailsAr && !selectedMethod.detailsAr.includes("أدخل بيانات الحساب هنا");
+
+      stage.innerHTML = `<div class="booking-stage active">
+        ${bookingState.error ? `<div class="booking-error">${escapeHtml(bookingState.error)}</div>` : ""}
+        ${!liveEndpoint ? `<div class="booking-error">${copy.configError}</div>` : ""}
+        ${!methodConfigured ? `<div class="booking-error">${copy.paymentConfigError}</div>` : ""}
+
+        <div class="booking-section">
+          <h3 class="booking-section-title">${copy.summary}</h3>
+          <div class="booking-summary">
+            ${bookingSummaryRow(copy.studentName,draft.studentName)}
+            ${bookingSummaryRow(copy.guardianName,draft.guardianName)}
+            ${bookingSummaryRow(copy.guardianPhone,draft.guardianPhone)}
+            ${bookingSummaryRow(copy.track,bookingTrackLabel(en))}
+            ${bookingSummaryRow(copy.test,test.taken ? copy.testTaken(test.score,test.total,test.level) : copy.testNotTaken)}
+          </div>
+        </div>
+
+        <div class="booking-info-strip">
+          <div class="booking-info-box"><strong>${bookingConfig.fee} ${en ? "EGP" : "جنيه"}</strong><span>${copy.fee}</span></div>
+          <div class="booking-info-box"><strong>${escapeHtml(bookingConfig.programStart)}</strong><span>${copy.start}</span></div>
+          <div class="booking-info-box"><strong>${escapeHtml(bookingConfig.bookingDeadline)}</strong><span>${copy.deadline}</span></div>
+        </div>
+
+        <form id="bookingPaymentForm" novalidate>
+          <div class="booking-section">
+            <h3 class="booking-section-title">${copy.paymentTitle}</h3>
+            <p class="booking-section-subtitle">${copy.paymentSub}</p>
+
+            <div class="booking-field full">
+              <label>${copy.method} <span class="booking-required">*</span></label>
+              <div class="payment-methods">
+                ${enabledMethods.map(method => {
+                  const label = en ? method.labelEn : method.labelAr;
+                  const details = en ? method.detailsEn : method.detailsAr;
+                  const checked = draft.paymentMethod === method.id;
+                  return `<label class="payment-method ${checked ? "selected" : ""}">
+                    <input type="radio" name="paymentMethod" value="${escapeHtml(method.id)}" ${checked ? "checked" : ""}>
+                    <strong>${escapeHtml(label)}</strong>
+                    <span>${escapeHtml(details)}</span>
+                  </label>`;
+                }).join("")}
+              </div>
+            </div>
+
+            ${selectedMethod ? `<div class="payment-instructions" id="paymentInstructions">
+              <strong>${escapeHtml(en ? selectedMethod.labelEn : selectedMethod.labelAr)}</strong>
+              <span class="payment-target-label">${copy.paymentTarget}</span>
+              <div class="payment-number-row">
+                <div class="payment-number">${escapeHtml(selectedMethod.number || "")}</div>
+                <button class="copy-payment-btn" id="copyPaymentNumberBtn" type="button" onclick="copyPaymentNumber('${escapeHtml(selectedMethod.number || "")}',this)">${copy.copyNumber}</button>
+              </div>
+              <div class="payment-amount">
+                <span>${copy.paymentAmount}</span>
+                <strong>${bookingConfig.fee} ${en ? "EGP" : "جنيه"}</strong>
+              </div>
+              ${renderPaymentSteps(selectedMethod,en)}
+            </div>` : ""}
+
+            <div class="booking-form-grid" style="margin-top:14px">
+              <div class="booking-field full">
+                <label for="bookingReceipt">${copy.receipt} <span class="booking-required">*</span></label>
+                <div class="receipt-box">
+                  <input class="receipt-input" id="bookingReceipt" name="receipt" type="file" accept="image/jpeg,image/png,application/pdf">
+                  <label class="receipt-upload-btn" for="bookingReceipt">${copy.uploadReceipt}</label>
+                  <div id="receiptPreview" class="receipt-file-status">${bookingState.receiptName ? `${copy.receiptSelected}: ${escapeHtml(bookingState.receiptName)}` : copy.noReceiptSelected}</div>
+                  <span class="booking-help">${copy.receiptHelp}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="booking-actions">
+            <button class="btn secondary" type="button" onclick="bookingState.step=1; bookingState.error=''; renderBookingView()">${copy.edit}</button>
+            <button class="btn primary" id="bookingSubmitBtn" type="submit" ${bookingState.submitting ? "disabled" : ""}>
+              ${bookingState.submitting ? `<span class="booking-loader"></span>${copy.sending}` : copy.submit}
+            </button>
+          </div>
+        </form>
+      </div>`;
+
+      document.querySelectorAll('input[name="paymentMethod"]').forEach(input => {
+        input.addEventListener("change",() => {
+          userData.bookingDraft.paymentMethod = input.value;
+          renderBookingView();
+        });
+      });
+
+      document.getElementById("bookingReceipt").addEventListener("change",handleBookingReceipt);
+      document.getElementById("bookingPaymentForm").addEventListener("submit",submitBooking);
+    }
+
+    async function copyPaymentNumber(number,button) {
+      const copy = bookingCopy();
+      let copied = false;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(number);
+          copied = true;
+        }
+      } catch (error) {
+        copied = false;
+      }
+      if (!copied) {
+        const temp = document.createElement("textarea");
+        temp.value = number;
+        temp.setAttribute("readonly","");
+        temp.style.position = "fixed";
+        temp.style.opacity = "0";
+        document.body.appendChild(temp);
+        temp.select();
+        try { copied = document.execCommand("copy"); } catch (error) { copied = false; }
+        temp.remove();
+      }
+      if (button && copied) {
+        const original = button.textContent;
+        button.textContent = copy.copied;
+        setTimeout(() => { button.textContent = original; },1400);
+      }
+    }
+
+    function bookingSummaryRow(label,value) {
+      return `<div class="booking-summary-row"><span>${escapeHtml(label)}</span><span>${escapeHtml(value || "—")}</span></div>`;
+    }
+
+    function handleBookingReceipt(event) {
+      const copy = bookingCopy();
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const allowed = ["image/jpeg","image/png","application/pdf"];
+      if (!allowed.includes(file.type) || file.size > 4 * 1024 * 1024) {
+        bookingState.error = copy.fileError;
+        bookingState.receipt = null;
+        bookingState.receiptName = "";
+        event.target.value = "";
+        renderBookingView();
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        bookingState.receipt = String(reader.result).split(",")[1] || "";
+        bookingState.receiptName = file.name;
+        bookingState.receiptType = file.type;
+        bookingState.error = "";
+        const preview = document.getElementById("receiptPreview");
+        if (preview) preview.textContent = `${copy.receiptSelected}: ${file.name}`;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function generateClientSubmissionId() {
+      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+      return `atc-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function sendBookingPayload(payload) {
+      return new Promise((resolve,reject) => {
+        const runner = window.google && window.google.script && window.google.script.run;
+        if (runner) {
+          window.google.script.run
+            .withSuccessHandler(resolve)
+            .withFailureHandler(error => {
+              const message = error && error.message ? error.message : String(error || "Apps Script request failed");
+              reject(new Error(message));
+            })
+            .createBookingFromClient(payload);
+          return;
+        }
+
+        fetch(bookingConfig.endpoint,{
+          method:"POST",
+          headers:{"Content-Type":"text/plain;charset=utf-8"},
+          body:JSON.stringify(payload),
+          redirect:"follow"
+        })
+          .then(response => response.json().then(data => ({response,data})))
+          .then(({response,data}) => {
+            if (!response.ok || !data || !data.ok) {
+              throw new Error((data && data.message) || "Submission failed");
+            }
+            resolve(data);
+          })
+          .catch(reject);
+      });
+    }
+
+    async function submitBooking(event) {
+      event.preventDefault();
+      if (bookingState.submitting) return;
+
+      const copy = bookingCopy();
+      const draft = emptyBookingDraft();
+      const fd = new FormData(event.currentTarget);
+      draft.paymentMethod = String(fd.get("paymentMethod") || draft.paymentMethod || "");
+      userData.bookingDraft = draft;
+
+      if (!draft.paymentMethod) {
+        bookingState.error = copy.requiredError;
+        renderBookingView();
+        return;
+      }
+      if (!bookingState.receipt) {
+        bookingState.error = copy.receiptError;
+        renderBookingView();
+        return;
+      }
+      if (!bookingConfig.endpoint || bookingConfig.endpoint.includes("PASTE_")) {
+        bookingState.error = copy.configError;
+        renderBookingView();
+        return;
+      }
+
+      const method = bookingConfig.paymentMethods.find(item => item.id === draft.paymentMethod);
+      const test = getBookingTestSnapshot();
+      const payload = {
+        action:"createBooking",
+        clientSubmissionId:generateClientSubmissionId(),
+        submittedAt:new Date().toISOString(),
+        source:"ATC Academy Smart Assistant",
+        submittedByRole:userData.role,
+        interfaceLanguage:bookingUsesEnglish() ? "en" : "ar",
+        studyTrack:userData.language,
+        grade:"Second Year Baccalaureate",
+        studentName:draft.studentName,
+        studentPhone:draft.studentPhone,
+        guardianName:draft.guardianName,
+        guardianPhone:draft.guardianPhone,
+        email:draft.email,
+        governorate:draft.governorate,
+        schoolName:draft.schoolName,
+        notes:draft.notes,
+        testTaken:test.taken,
+        testLanguage:test.language,
+        testScore:test.score,
+        testTotal:test.total,
+        testLevel:test.level,
+        programFee:bookingConfig.fee,
+        currency:bookingConfig.currency,
+        paymentMethod:draft.paymentMethod,
+        paymentMethodLabel:method ? (bookingUsesEnglish() ? method.labelEn : method.labelAr) : draft.paymentMethod,
+        receiptName:bookingState.receiptName,
+        receiptType:bookingState.receiptType,
+        receiptBase64:bookingState.receipt
+      };
+
+      bookingState.submitting = true;
+      bookingState.error = "";
+      renderBookingView();
+
+      try {
+        const data = await sendBookingPayload(payload);
+        if (!data || !data.ok) throw new Error((data && data.message) || "Submission failed");
+
+        bookingState.confirmation = data;
+        bookingState.step = 3;
+        bookingState.receipt = null;
+        bookingState.receiptName = "";
+        bookingState.receiptType = "";
+        userData.bookingDraft = null;
+      } catch (error) {
+        console.error("ATC booking submission error:", error);
+        bookingState.error = bookingUsesEnglish()
+          ? "The request could not be submitted. Check the internet connection and the published Apps Script version, then try again."
+          : "تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت ومن تحديث النسخة المنشورة في Google Apps Script، ثم أعد المحاولة.";
+      } finally {
+        bookingState.submitting = false;
+        renderBookingView();
+        window.scrollTo({top:0,behavior:"smooth"});
+      }
+    }
+
+    function renderBookingConfirmation(container,copy) {
+      const data = bookingState.confirmation || {};
+      container.innerHTML = `<div class="booking-head">
+          <div class="icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="9"/><path d="M8 12l2.6 2.6L16.5 9"/>
+            </svg>
+          </div>
+          <h2>${copy.confirmed}</h2>
+          <p>${copy.confirmedText}</p>
+        </div>
+        ${bookingProgress(copy)}
+        <div class="booking-confirmation">
+          <div>${copy.reference}</div>
+          <div class="booking-reference">${escapeHtml(data.bookingId || "ATC-PENDING")}</div>
+          <div class="booking-status-note">${copy.pending}</div>
+          <div class="ctas">
+            <button class="btn primary" type="button" onclick="bookingState.step=1; bookingState.confirmation=null; backToMenu()">${copy.home}</button>
+          </div>
+        </div>`;
+    }
+
+    function openRoute(name) {
+      document.getElementById("step3").classList.remove("active");
+      document.querySelectorAll(".route").forEach(x => x.classList.remove("active"));
+      document.getElementById(name + "View").classList.add("active");
+      if (name === "program") backToProgramHome(false);
+      if (name === "test") renderTestView();
+      if (name === "booking") renderBookingView();
+      window.scrollTo({ top:0, behavior:"smooth" });
+    }
+
+    function openProgramDetail(name) {
+      document.getElementById("programHome").style.display = "none";
+      document.querySelectorAll(".program-detail").forEach(x => x.classList.remove("active"));
+      const map = {
+        idea:"programIdea",
+        learn:"programLearn",
+        system:"programSystem",
+        dates:"programDates",
+        about:"programAbout"
+      };
+      document.getElementById(map[name]).classList.add("active");
+      window.scrollTo({ top:0, behavior:"smooth" });
+    }
+
+    function backToProgramHome(scroll=true) {
+      document.querySelectorAll(".program-detail").forEach(x => x.classList.remove("active"));
+      document.getElementById("programHome").style.display = "grid";
+      if (scroll) window.scrollTo({ top:0, behavior:"smooth" });
+    }
+
+    function backToMenu() {
+      document.querySelectorAll(".route").forEach(x => x.classList.remove("active"));
+      document.getElementById("step3").classList.add("active");
+      updateStepper(3);
+      window.scrollTo({ top:0, behavior:"smooth" });
+    }
+
+    restorePlacementTests();
+    renderProgramDetails();
+    renderTestView();
+    renderBookingView();
+  </script>
+</body>
+</html>
